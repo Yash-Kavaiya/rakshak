@@ -90,9 +90,14 @@ def merge_chunks(chunks: list[AudioChunk]) -> AudioChunk:
     if len(chunks) == 1:
         return chunks[0]
     pcm = np.concatenate(
-        [np.frombuffer(wave.open(io.BytesIO(c.wav_bytes)).readframes(-1), np.int16) for c in chunks]
+        [
+            np.frombuffer(wave.open(io.BytesIO(c.wav_bytes)).readframes(-1), np.int16)
+            for c in chunks
+        ]
     )
-    return AudioChunk(chunks[0].index, chunks[0].start, chunks[-1].end, to_wav_bytes(pcm))
+    return AudioChunk(
+        chunks[0].index, chunks[0].start, chunks[-1].end, to_wav_bytes(pcm)
+    )
 
 
 def chunk_wav(path: str | Path, seconds: float = 5.0) -> list[AudioChunk]:

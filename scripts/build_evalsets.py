@@ -35,7 +35,11 @@ JUDGE = {"judge_model": "gemini-3.8-flash", "num_samples": 1}
 
 SCAM_CONFIG = {
     "criteria": {
-        "tool_trajectory_avg_score": {"threshold": 0.75, "match_type": "EXACT", "ignore_args": True},
+        "tool_trajectory_avg_score": {
+            "threshold": 0.75,
+            "match_type": "EXACT",
+            "ignore_args": True,
+        },
         "rubric_based_tool_use_quality_v1": {
             "threshold": 0.7,
             "judge_model_options": JUDGE,
@@ -65,13 +69,20 @@ SCAM_CONFIG = {
 
 GENUINE_CONFIG = {
     "criteria": {
-        "tool_trajectory_avg_score": {"threshold": 1.0, "match_type": "EXACT", "ignore_args": True},
+        "tool_trajectory_avg_score": {
+            "threshold": 1.0,
+            "match_type": "EXACT",
+            "ignore_args": True,
+        },
     }
 }
 
 
 def load_scripts() -> list[dict]:
-    return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(SCRIPTS.glob("*.json"))]
+    return [
+        json.loads(p.read_text(encoding="utf-8"))
+        for p in sorted(SCRIPTS.glob("*.json"))
+    ]
 
 
 def line_timing(script: dict) -> list[dict]:
@@ -80,7 +91,8 @@ def line_timing(script: dict) -> list[dict]:
         return json.loads(timing_file.read_text(encoding="utf-8"))
     # No audio yet: assume ~6s per line so headers still look like a call.
     return [
-        {"line": i, "start": i * 6.0, "end": i * 6.0 + 5.5} for i in range(len(script["lines"]))
+        {"line": i, "start": i * 6.0, "end": i * 6.0 + 5.5}
+        for i in range(len(script["lines"]))
     ]
 
 
@@ -112,7 +124,9 @@ def build_case(script: dict, audio: bool) -> dict:
                 "invocation_id": f"{script['id']}-{t['line']}",
                 "user_content": {"role": "user", "parts": parts},
                 "intermediate_data": {
-                    "tool_uses": [{"name": expected_tool(script, t["line"]), "args": {}}],
+                    "tool_uses": [
+                        {"name": expected_tool(script, t["line"]), "args": {}}
+                    ],
                 },
             }
         )
@@ -127,8 +141,12 @@ def write_set(directory: Path, set_id: str, cases: list[dict], config: dict) -> 
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / f"{set_id}.test.json"
     eval_set = {"eval_set_id": set_id, "name": set_id, "eval_cases": cases}
-    path.write_text(json.dumps(eval_set, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    (directory / "test_config.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(eval_set, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
+    )
+    (directory / "test_config.json").write_text(
+        json.dumps(config, indent=2) + "\n", encoding="utf-8"
+    )
     return path
 
 
@@ -138,8 +156,13 @@ def agents_cli_case(script: dict, upto: int, expect: str) -> dict:
     header = f"[CALL CHUNK 1 | {timing[0]['start']:.1f}s-{timing[upto]['end']:.1f}s]"
     return {
         "eval_case_id": f"{script['id']}__upto_line_{upto}",
-        "prompt": {"role": "user", "parts": [{"text": f"{header}\nTRANSCRIPT: {transcript}"}]},
-        "reference": {"response": {"role": "model", "parts": [{"text": f"EXPECT: {expect}"}]}},
+        "prompt": {
+            "role": "user",
+            "parts": [{"text": f"{header}\nTRANSCRIPT: {transcript}"}],
+        },
+        "reference": {
+            "response": {"role": "model", "parts": [{"text": f"EXPECT: {expect}"}]}
+        },
     }
 
 
@@ -147,12 +170,17 @@ def build_agents_cli_dataset(scripts: list[dict]) -> Path:
     cases = []
     for s in scripts:
         if s["label"] == "scam":
-            cases.append(agents_cli_case(s, 0, "log_call_status"))  # greeting only: no alarm yet
+            cases.append(
+                agents_cli_case(s, 0, "log_call_status")
+            )  # greeting only: no alarm yet
             cases.append(agents_cli_case(s, s["alert_line"] + 1, "raise_scam_alert"))
         else:
             cases.append(agents_cli_case(s, len(s["lines"]) - 1, "log_call_status"))
     out = ROOT / "tests" / "eval" / "datasets" / "rakshak-dataset.json"
-    out.write_text(json.dumps({"eval_cases": cases}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    out.write_text(
+        json.dumps({"eval_cases": cases}, ensure_ascii=False, indent=1) + "\n",
+        encoding="utf-8",
+    )
     return out
 
 
@@ -160,11 +188,17 @@ def main() -> None:
     scripts = load_scripts()
     for mode in ("transcript", "audio"):
         audio = mode == "audio"
-        usable = [s for s in scripts if not audio or (CALLS / f"{s['id']}.timing.json").exists()]
+        usable = [
+            s
+            for s in scripts
+            if not audio or (CALLS / f"{s['id']}.timing.json").exists()
+        ]
         for label, config in (("scam", SCAM_CONFIG), ("genuine", GENUINE_CONFIG)):
             cases = [build_case(s, audio) for s in usable if s["label"] == label]
             if cases:
-                out = write_set(EVALS / mode / label, f"{label}_calls_{mode}", cases, config)
+                out = write_set(
+                    EVALS / mode / label, f"{label}_calls_{mode}", cases, config
+                )
                 print(f"{out.relative_to(ROOT)}: {len(cases)} cases")
     out = build_agents_cli_dataset(scripts)
     print(f"{out.relative_to(ROOT)}: agents-cli dataset")

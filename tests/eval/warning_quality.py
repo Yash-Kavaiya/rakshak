@@ -48,7 +48,9 @@ Deduct for wrong script/language, long or bureaucratic text, missing action, wro
 
 
 def evaluate(instance):
-    alert = next((c for c in tool_calls(instance) if c.get("name") == "raise_scam_alert"), None)
+    alert = next(
+        (c for c in tool_calls(instance) if c.get("name") == "raise_scam_alert"), None
+    )
     if alert is None:
         return {"score": 5, "explanation": "n/a: no alert raised in this case"}
     prompt = (

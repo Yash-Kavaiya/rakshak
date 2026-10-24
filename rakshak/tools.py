@@ -108,7 +108,11 @@ def log_call_status(risk_level: str, heard: str, tool_context: ToolContext) -> d
         level = "suspicious"
     log = list(tool_context.state.get("call_log", []))
     log.append(
-        {"chunk": tool_context.state.get("current_chunk"), "risk_level": level, "heard": heard}
+        {
+            "chunk": tool_context.state.get("current_chunk"),
+            "risk_level": level,
+            "heard": heard,
+        }
     )
     tool_context.state["call_log"] = log
     return {"logged": True, "alert_active": "alert" in tool_context.state}

@@ -15,8 +15,13 @@ EVALS = ROOT / "rakshak" / "evals"
 pytestmark = pytest.mark.live
 
 SETS = [
-    d for d in (EVALS / "transcript" / "scam", EVALS / "transcript" / "genuine",
-                EVALS / "audio" / "scam", EVALS / "audio" / "genuine")
+    d
+    for d in (
+        EVALS / "transcript" / "scam",
+        EVALS / "transcript" / "genuine",
+        EVALS / "audio" / "scam",
+        EVALS / "audio" / "genuine",
+    )
     if any(d.glob("*.test.json"))
 ]
 

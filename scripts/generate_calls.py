@@ -36,7 +36,9 @@ SCRIPTS = ROOT / "data" / "scripts"
 CALLS = ROOT / "data" / "calls"
 
 
-def speak(client: genai.Client, style: str, speaker: str, voice: str, text: str) -> np.ndarray:
+def speak(
+    client: genai.Client, style: str, speaker: str, voice: str, text: str
+) -> np.ndarray:
     prompt = f"{style}\nYou are the {speaker}. Speak this line naturally, exactly as written:\n{text}"
     for attempt in range(8):
         try:
@@ -47,7 +49,9 @@ def speak(client: genai.Client, style: str, speaker: str, voice: str, text: str)
                     response_modalities=["AUDIO"],
                     speech_config=types.SpeechConfig(
                         voice_config=types.VoiceConfig(
-                            prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=voice)
+                            prebuilt_voice_config=types.PrebuiltVoiceConfig(
+                                voice_name=voice
+                            )
                         )
                     ),
                 ),
@@ -65,16 +69,32 @@ def render(script: dict, client: genai.Client) -> tuple[bytes, list[dict]]:
     with ThreadPoolExecutor(max_workers=2) as pool:
         clips = list(
             pool.map(
-                lambda line: speak(client, script["style"], line[0], script["speakers"][line[0]], line[1]),
+                lambda line: speak(
+                    client,
+                    script["style"],
+                    line[0],
+                    script["speakers"][line[0]],
+                    line[1],
+                ),
                 script["lines"],
             )
         )
     pause = np.zeros(int(PAUSE_SECONDS * TTS_RATE), dtype=np.int16)
     pieces, timing, cursor = [pause], [], PAUSE_SECONDS
-    for i, ((speaker, text), clip) in enumerate(zip(script["lines"], clips, strict=True)):
+    for i, ((speaker, text), clip) in enumerate(
+        zip(script["lines"], clips, strict=True)
+    ):
         start = cursor
         cursor += len(clip) / TTS_RATE
-        timing.append({"line": i, "speaker": speaker, "text": text, "start": round(start, 2), "end": round(cursor, 2)})
+        timing.append(
+            {
+                "line": i,
+                "speaker": speaker,
+                "text": text,
+                "start": round(start, 2),
+                "end": round(cursor, 2),
+            }
+        )
         pieces += [clip, pause]
         cursor += PAUSE_SECONDS
     pcm = phone_line(np.concatenate(pieces), TTS_RATE)
@@ -96,7 +116,9 @@ def main(ids: list[str]) -> None:
         (CALLS / f"{script['id']}.timing.json").write_text(
             json.dumps(timing, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
-        print(f"{script['id']}.wav: {timing[-1]['end'] + PAUSE_SECONDS:.1f}s, {len(timing)} lines")
+        print(
+            f"{script['id']}.wav: {timing[-1]['end'] + PAUSE_SECONDS:.1f}s, {len(timing)} lines"
+        )
 
 
 if __name__ == "__main__":

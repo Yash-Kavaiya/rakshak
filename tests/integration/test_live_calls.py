@@ -12,29 +12,38 @@ from rakshak.monitor import CallMonitor
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS = {
-    p.stem: json.loads(p.read_text(encoding="utf-8")) for p in (ROOT / "data/scripts").glob("*.json")
+    p.stem: json.loads(p.read_text(encoding="utf-8"))
+    for p in (ROOT / "data/scripts").glob("*.json")
 }
-CALLS = [sid for sid in sorted(SCRIPTS) if (ROOT / "data/calls" / f"{sid}.wav").exists()]
+CALLS = [
+    sid for sid in sorted(SCRIPTS) if (ROOT / "data/calls" / f"{sid}.wav").exists()
+]
 
 pytestmark = pytest.mark.live
 
 
 async def _run(call_id: str) -> tuple[dict, list[dict]]:
-    events = [e async for e in CallMonitor().stream(ROOT / "data/calls" / f"{call_id}.wav")]
+    events = [
+        e async for e in CallMonitor().stream(ROOT / "data/calls" / f"{call_id}.wav")
+    ]
     return events[-1], events
 
 
 @pytest.mark.parametrize("call_id", [c for c in CALLS if SCRIPTS[c]["label"] == "scam"])
 async def test_scam_call_is_flagged_mid_call_with_red_flags(call_id):
     script = SCRIPTS[call_id]
-    timing = json.loads((ROOT / "data/calls" / f"{call_id}.timing.json").read_text(encoding="utf-8"))
+    timing = json.loads(
+        (ROOT / "data/calls" / f"{call_id}.timing.json").read_text(encoding="utf-8")
+    )
     done, events = await _run(call_id)
 
     assert done["verdict"] == "scam", [e.get("heard") for e in events]
     evident_from = timing[script["alert_line"]]["start"]
     # Mid-call: after the scam became audible, while the call still had time left.
     assert evident_from < done["first_alert_at"] < done["duration"]
-    assert done["first_alert_at"] <= done["duration"] - 10, "warning should come with time to spare"
+    assert done["first_alert_at"] <= done["duration"] - 10, (
+        "warning should come with time to spare"
+    )
 
     alert = done["alert"]
     assert "authority_impersonation" in alert["red_flags"]
@@ -43,7 +52,9 @@ async def test_scam_call_is_flagged_mid_call_with_red_flags(call_id):
     assert any("઀" <= ch <= "૿" for ch in alert["warning_gujarati"]), "Gujarati script"
 
 
-@pytest.mark.parametrize("call_id", [c for c in CALLS if SCRIPTS[c]["label"] == "genuine"])
+@pytest.mark.parametrize(
+    "call_id", [c for c in CALLS if SCRIPTS[c]["label"] == "genuine"]
+)
 async def test_genuine_call_does_not_cry_wolf(call_id):
     done, events = await _run(call_id)
     assert done["verdict"] == "safe", done["alert"]

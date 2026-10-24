@@ -24,7 +24,10 @@ def test_instruction_lists_every_red_flag_and_key_rules():
 
 
 def test_scripts_cover_required_demo_scenarios():
-    scripts = [json.loads(p.read_text(encoding="utf-8")) for p in (ROOT / "data/scripts").glob("*.json")]
+    scripts = [
+        json.loads(p.read_text(encoding="utf-8"))
+        for p in (ROOT / "data/scripts").glob("*.json")
+    ]
     by_type = {s["scam_type"] for s in scripts if s["label"] == "scam"}
     assert {"digital_arrest", "fake_kyc", "fake_courier"} <= by_type
     assert any(s["label"] == "genuine" for s in scripts)
@@ -43,7 +46,9 @@ def test_transcript_evalsets_expect_one_alert_per_scam_and_none_for_genuine():
                     for inv in case["conversation"]
                     for t in inv["intermediate_data"]["tool_uses"]
                 ]
-                assert tools.count("raise_scam_alert") == expected_alerts, case["eval_id"]
+                assert tools.count("raise_scam_alert") == expected_alerts, case[
+                    "eval_id"
+                ]
 
 
 def test_chunk_verdict_reports_alert_raised_in_this_chunk():
@@ -56,7 +61,11 @@ def test_chunk_verdict_reports_alert_raised_in_this_chunk():
     }
     ctx = SimpleNamespace(state={"current_chunk": 3, "alert": alert})
     text = chunk_verdict(ctx).parts[0].text
-    assert text.startswith("SCAM ALERT (fake_kyc)") and "otp_request, urgency" in text
+    assert (
+        text is not None
+        and text.startswith("SCAM ALERT (fake_kyc)")
+        and "otp_request, urgency" in text
+    )
 
 
 def test_chunk_verdict_reports_status_after_alert_and_none_without_tools():
@@ -74,10 +83,14 @@ def test_chunk_verdict_reports_status_after_alert_and_none_without_tools():
 def test_track_chunk_reads_header_from_user_turn():
     ctx = SimpleNamespace(
         state={},
-        user_content=types.Content(role="user", parts=[types.Part(text="[CALL CHUNK 7 | 30.0s-35.0s]")]),
+        user_content=types.Content(
+            role="user", parts=[types.Part(text="[CALL CHUNK 7 | 30.0s-35.0s]")]
+        ),
     )
     track_chunk(ctx)
     assert ctx.state["current_chunk"] == 6
-    ctx = SimpleNamespace(state={}, user_content=types.Content(role="user", parts=[types.Part(text="hi")]))
+    ctx = SimpleNamespace(
+        state={}, user_content=types.Content(role="user", parts=[types.Part(text="hi")])
+    )
     track_chunk(ctx)
     assert "current_chunk" not in ctx.state

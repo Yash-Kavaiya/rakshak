@@ -11,7 +11,9 @@ class FakeRunner:
         self.alert_on = alert_on
         self.calls = []
 
-    async def run_async(self, *, user_id, session_id, new_message, state_delta=None, **_):
+    async def run_async(
+        self, *, user_id, session_id, new_message, state_delta=None, **_
+    ):
         idx = state_delta["current_chunk"]
         self.calls.append((session_id, idx, new_message))
         if idx == self.alert_on:
@@ -26,19 +28,34 @@ class FakeRunner:
             }
             response = {"status": "alert_raised", "red_flags": ["threat_or_arrest"]}
         else:
-            name, args = "log_call_status", {"risk_level": "safe", "heard": f"chunk {idx}"}
+            name, args = (
+                "log_call_status",
+                {"risk_level": "safe", "heard": f"chunk {idx}"},
+            )
             response = {"logged": True, "alert_active": False}
         yield Event(
             author="rakshak",
             content=types.Content(
-                role="model", parts=[types.Part(function_call=types.FunctionCall(name=name, args=args))]
+                role="model",
+                parts=[
+                    types.Part(function_call=types.FunctionCall(name=name, args=args))
+                ],
             ),
         )
         yield Event(
             author="rakshak",
             content=types.Content(
                 role="user",
-                parts=[types.Part(function_response=types.FunctionResponse(name=name, response=response))],
+                parts=[
+                    types.Part(
+                        function_response=types.FunctionResponse(
+                            name=name, response=response
+                        )
+                    )
+                ],
             ),
         )
-        yield Event(author="rakshak", content=types.Content(role="model", parts=[types.Part(text="ok")]))
+        yield Event(
+            author="rakshak",
+            content=types.Content(role="model", parts=[types.Part(text="ok")]),
+        )

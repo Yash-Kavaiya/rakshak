@@ -116,7 +116,9 @@ root_agent = Agent(
     after_agent_callback=chunk_verdict,
     generate_content_config=types.GenerateContentConfig(
         temperature=0.1,
-        thinking_config=types.ThinkingConfig(thinking_level=os.getenv("RAKSHAK_THINKING", "low")),
+        thinking_config=types.ThinkingConfig(
+            thinking_level=os.getenv("RAKSHAK_THINKING", "low")
+        ),
     ),
 )
 

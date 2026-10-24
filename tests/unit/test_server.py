@@ -18,7 +18,9 @@ def client(monkeypatch):
 def test_index_and_call_list(client):
     assert "Rakshak" in client.get("/").text
     calls = {c["id"]: c for c in client.get("/api/calls").json()}
-    assert {"digital_arrest_hi", "fake_kyc_gu", "fake_courier_hi", "genuine_gu"} <= set(calls)
+    assert {"digital_arrest_hi", "fake_kyc_gu", "fake_courier_hi", "genuine_gu"} <= set(
+        calls
+    )
     assert calls["genuine_gu"]["label"] == "genuine"
     assert calls["fake_kyc_gu"]["language"] == "gu"
     assert calls["digital_arrest_hi"]["duration"] > 30
@@ -39,7 +41,9 @@ def test_monitor_sse_streams_alert_then_done(client, monkeypatch):
 
     monkeypatch.setattr(CallMonitor, "stream", fast)
     with client.stream("GET", "/api/monitor/genuine_bank_hi") as r:
-        events = [json.loads(line[6:]) for line in r.iter_lines() if line.startswith("data: ")]
+        events = [
+            json.loads(line[6:]) for line in r.iter_lines() if line.startswith("data: ")
+        ]
     kinds = [e["type"] for e in events]
     assert kinds[0] == "start" and kinds[-1] == "done"
     assert kinds[2] == "alert"  # FakeRunner alerts on chunk index 1

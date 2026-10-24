@@ -64,7 +64,10 @@ async def test_realtime_mode_waits_for_chunk_to_be_heard():
 
 def test_text_chunk_message():
     msg = chunk_message(3, 15.0, 20.0, text="Caller: OTP batao")
-    assert msg.parts[0].text == "[CALL CHUNK 4 | 15.0s-20.0s]\nTRANSCRIPT: Caller: OTP batao"
+    assert (
+        msg.parts[0].text
+        == "[CALL CHUNK 4 | 15.0s-20.0s]\nTRANSCRIPT: Caller: OTP batao"
+    )
 
 
 async def test_realtime_mode_merges_chunks_heard_while_analysis_lagged():

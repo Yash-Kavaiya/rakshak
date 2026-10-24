@@ -25,14 +25,19 @@ def test_first_alert_is_stored_in_state():
     tc = ctx()
     result = _alert(tc)
     assert result["status"] == "alert_raised"
-    assert tc.state["alert"]["red_flags"] == ["authority_impersonation", "threat_or_arrest"]
+    assert tc.state["alert"]["red_flags"] == [
+        "authority_impersonation",
+        "threat_or_arrest",
+    ]
     assert tc.state["alert"]["scam_type"] == "digital_arrest"
 
 
 def test_second_alert_is_deduplicated_but_merges_new_flags():
     tc = ctx()
     _alert(tc)
-    result = _alert(tc, red_flags=["money_transfer", "threat_or_arrest"], confidence=0.95)
+    result = _alert(
+        tc, red_flags=["money_transfer", "threat_or_arrest"], confidence=0.95
+    )
     assert result["status"] == "already_alerted"
     assert tc.state["alert"]["red_flags"] == [
         "authority_impersonation",
@@ -79,7 +84,13 @@ def test_log_call_status_coerces_unknown_risk():
 
 
 def test_red_flag_catalogue_covers_required_signals():
-    for flag in ["urgency", "threat_or_arrest", "otp_request", "money_transfer", "authority_impersonation"]:
+    for flag in [
+        "urgency",
+        "threat_or_arrest",
+        "otp_request",
+        "money_transfer",
+        "authority_impersonation",
+    ]:
         assert flag in RED_FLAGS
 
 

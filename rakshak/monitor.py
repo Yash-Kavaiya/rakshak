@@ -15,14 +15,23 @@ from rakshak.audio import AudioChunk, chunk_wav, merge_chunks
 
 
 def chunk_message(
-    index: int, start: float, end: float, audio: bytes | None = None, text: str | None = None
+    index: int,
+    start: float,
+    end: float,
+    audio: bytes | None = None,
+    text: str | None = None,
 ) -> types.Content:
     header = f"[CALL CHUNK {index + 1} | {start:.1f}s-{end:.1f}s]"
     if text is not None:
-        return types.Content(role="user", parts=[types.Part(text=f"{header}\nTRANSCRIPT: {text}")])
+        return types.Content(
+            role="user", parts=[types.Part(text=f"{header}\nTRANSCRIPT: {text}")]
+        )
     return types.Content(
         role="user",
-        parts=[types.Part(text=header), types.Part.from_bytes(data=audio, mime_type="audio/wav")],
+        parts=[
+            types.Part(text=header),
+            types.Part.from_bytes(data=audio, mime_type="audio/wav"),
+        ],
     )
 
 
@@ -58,22 +67,37 @@ class LiveCall:
                 continue
             for part in event.content.parts:
                 if part.function_call:
-                    key = part.function_call.id or f"{part.function_call.name}#{len(order)}"
-                    calls[key] = {"name": part.function_call.name, "args": dict(part.function_call.args or {})}
+                    key = (
+                        part.function_call.id
+                        or f"{part.function_call.name}#{len(order)}"
+                    )
+                    calls[key] = {
+                        "name": part.function_call.name,
+                        "args": dict(part.function_call.args or {}),
+                    }
                     order.append(key)
                 elif part.function_response:
                     fr = part.function_response
-                    key = fr.id if fr.id in calls else next(
-                        (k for k in reversed(order) if calls[k]["name"] == fr.name), None
+                    key = (
+                        fr.id
+                        if fr.id in calls
+                        else next(
+                            (k for k in reversed(order) if calls[k]["name"] == fr.name),
+                            None,
+                        )
                     )
                     if key:
                         calls[key]["result"] = dict(fr.response or {})
         return [calls[k] for k in order]
 
-    async def feed(self, chunk: AudioChunk, text: str | None = None, merged: int = 1) -> dict:
+    async def feed(
+        self, chunk: AudioChunk, text: str | None = None, merged: int = 1
+    ) -> dict:
         """Analyse one chunk; returns an `alert` event the first time a scam is detected,
         otherwise a `chunk` status event."""
-        message = chunk_message(chunk.index, chunk.start, chunk.end, chunk.wav_bytes, text)
+        message = chunk_message(
+            chunk.index, chunk.start, chunk.end, chunk.wav_bytes, text
+        )
         t_req = time.monotonic()
         calls = await self._tool_calls(chunk.index, message)
         self.heard_until = chunk.end
@@ -88,7 +112,8 @@ class LiveCall:
             (
                 c
                 for c in calls
-                if c["name"] == "raise_scam_alert" and c.get("result", {}).get("status") == "alert_raised"
+                if c["name"] == "raise_scam_alert"
+                and c.get("result", {}).get("status") == "alert_raised"
             ),
             None,
         )
@@ -153,6 +178,8 @@ class CallMonitor:
                 heard_until = time.monotonic() - began
                 batch = [c for c in pending if c.end <= heard_until + 1e-3] or batch
             pending = pending[len(batch) :]
-            text = " ".join(transcripts[c.index] for c in batch) if transcripts else None
+            text = (
+                " ".join(transcripts[c.index] for c in batch) if transcripts else None
+            )
             yield await call.feed(merge_chunks(batch), text, merged=len(batch))
         yield call.summary()

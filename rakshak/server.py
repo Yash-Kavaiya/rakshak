@@ -56,7 +56,11 @@ def list_calls() -> list[dict]:
     out = []
     for cid in _call_ids():
         meta_file = SCRIPTS / f"{cid}.json"
-        meta = json.loads(meta_file.read_text(encoding="utf-8")) if meta_file.exists() else {}
+        meta = (
+            json.loads(meta_file.read_text(encoding="utf-8"))
+            if meta_file.exists()
+            else {}
+        )
         out.append(
             {
                 "id": cid,
@@ -92,7 +96,9 @@ async def monitor_call(call_id: str, chunk: float = CHUNK_SECONDS) -> StreamingR
 
     async def events():
         yield _sse({"type": "start", "call_id": call_id})
-        async for ev in monitor().stream(CALLS / f"{call_id}.wav", realtime=True, chunk_seconds=chunk):
+        async for ev in monitor().stream(
+            CALLS / f"{call_id}.wav", realtime=True, chunk_seconds=chunk
+        ):
             yield _sse(ev)
 
     return StreamingResponse(events(), media_type="text/event-stream")
@@ -103,7 +109,8 @@ async def speak_warning(text: str, lang: str = "hi") -> Response:
     from rakshak.tts import speak
 
     wav = await asyncio.to_thread(speak, text[:400], lang)
-    return Response(wav, media_type="audio/wav")
+    media_type = "audio/wav" if wav.startswith(b"RIFF") else "audio/mpeg"
+    return Response(wav, media_type=media_type)
 
 
 @app.websocket("/ws/listen")
@@ -139,7 +146,9 @@ async def listen(ws: WebSocket) -> None:
             data, buffer[:] = bytes(buffer[: len(buffer) - len(buffer) % 2]), b""
             pcm = np.frombuffer(data, dtype=np.int16)
             secs = len(pcm) / SAMPLE_RATE
-            chunk = AudioChunk(index, round(offset, 2), round(offset + secs, 2), to_wav_bytes(pcm))
+            chunk = AudioChunk(
+                index, round(offset, 2), round(offset + secs, 2), to_wav_bytes(pcm)
+            )
             offset += secs
             index += 1
             event = await call.feed(chunk, merged=max(1, round(secs / CHUNK_SECONDS)))

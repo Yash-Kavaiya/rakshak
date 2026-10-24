@@ -27,4 +27,7 @@ def evaluate(instance):
     expected = expected_tool(instance)
     made = [c["name"] for c in tool_calls(instance) if c.get("name") in DECISION_TOOLS]
     ok = made == [expected]
-    return {"score": 1 if ok else 0, "explanation": f"expected {expected}, agent called {made}"}
+    return {
+        "score": 1 if ok else 0,
+        "explanation": f"expected {expected}, agent called {made}",
+    }
