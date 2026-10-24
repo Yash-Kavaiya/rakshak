@@ -1,0 +1,330 @@
+{
+ "eval_set_id": "genuine_calls_transcript",
+ "name": "genuine_calls_transcript",
+ "eval_cases": [
+  {
+   "eval_id": "genuine_bank_hi",
+   "conversation": [
+    {
+     "invocation_id": "genuine_bank_hi-0",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 1 | 0.5s-10.9s]\nTRANSCRIPT: Banker: नमस्ते शर्मा जी, मैं बैंक ऑफ़ बड़ौदा, मणिनगर ब्रांच से प्रिया बोल रही हूँ। आपकी एफडी अगले हफ्ते मैच्योर हो रही है, बस यही बताने के लिए फोन किया।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_bank_hi-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 2 | 11.4s-15.5s]\nTRANSCRIPT: Customer: अच्छा अच्छा, धन्यवाद बेटा। तो मुझे क्या करना होगा?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_bank_hi-2",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 3 | 16.0s-24.3s]\nTRANSCRIPT: Banker: कुछ जल्दी नहीं है। जब आपको सुविधा हो, ब्रांच आ जाइए, हम आपको नई ब्याज दरें बता देंगे, फिर आप तय कर लीजिए।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_bank_hi-3",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 4 | 24.8s-28.2s]\nTRANSCRIPT: Customer: ठीक है, मैं सोमवार को बेटे के साथ आ जाऊँगा।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_bank_hi-4",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 5 | 28.7s-37.4s]\nTRANSCRIPT: Banker: बहुत बढ़िया। और एक बात याद रखिए, बैंक कभी भी फोन पर ओटीपी या पिन नहीं माँगता। कोई माँगे तो फोन काट दीजिए।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_bank_hi-5",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 6 | 37.9s-41.0s]\nTRANSCRIPT: Customer: हाँ, टीवी पर भी यही सुना है। धन्यवाद।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_bank_hi-6",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 7 | 41.5s-44.4s]\nTRANSCRIPT: Banker: आपका दिन शुभ हो शर्मा जी, नमस्ते।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "rakshak",
+    "user_id": "listener",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "genuine_gu",
+   "conversation": [
+    {
+     "invocation_id": "genuine_gu-0",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 1 | 0.5s-4.2s]\nTRANSCRIPT: Son: હેલો મમ્મી, કેમ છો? હું રાહુલ બોલું છું."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 2 | 4.7s-8.8s]\nTRANSCRIPT: Mother: અરે બેટા, મજામાં. તું કેમ છે? જમ્યો કે નહીં?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-2",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 3 | 9.3s-20.4s]\nTRANSCRIPT: Son: હા મમ્મી, હમણાં જ જમ્યો. સાંભળ, કાલે સવારે દસ વાગ્યે ડૉક્ટર મહેતા પાસે તારી ઍપોઇન્ટમેન્ટ છે, ઘૂંટણ બતાવવા માટે. હું નવ વાગ્યે ગાડી લઈને આવી જઈશ."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-3",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 4 | 20.9s-27.2s]\nTRANSCRIPT: Mother: સારું બેટા. અને હા, બેંકમાંથી મેસેજ આવ્યો હતો કે કેવાયસી અપડેટ કરવાનું છે."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-4",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 5 | 27.7s-40.0s]\nTRANSCRIPT: Son: હા મમ્મી, એ માટે આપણે કાલે ડૉક્ટર પછી સીધા બ્રાન્ચમાં જઈશું. આધાર કાર્ડ અને ફોટો સાથે લઈ લેજે. અને યાદ રાખજે, ફોન પર કોઈ ઓટીપી માંગે તો ક્યારેય આપવાનો નહીં."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-5",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 6 | 40.5s-44.7s]\nTRANSCRIPT: Mother: હા હા, ખબર છે. પપ્પાની દવા પણ લેતો આવજે."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-6",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 7 | 45.2s-50.7s]\nTRANSCRIPT: Son: ચોક્કસ. ને રવિવારે નીતા અને બાળકો પણ આવવાના છે, તું ઢોકળા બનાવજે!"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-7",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 8 | 51.2s-54.9s]\nTRANSCRIPT: Mother: સારું બેટા, ધ્યાન રાખજે. જય શ્રી કૃષ્ણ."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "genuine_gu-8",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 9 | 55.4s-57.2s]\nTRANSCRIPT: Son: જય શ્રી કૃષ્ણ મમ્મી."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "rakshak",
+    "user_id": "listener",
+    "state": {}
+   }
+  }
+ ]
+}

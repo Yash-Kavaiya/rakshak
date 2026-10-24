@@ -1,0 +1,587 @@
+{
+ "eval_set_id": "scam_calls_transcript",
+ "name": "scam_calls_transcript",
+ "eval_cases": [
+  {
+   "eval_id": "digital_arrest_hi",
+   "conversation": [
+    {
+     "invocation_id": "digital_arrest_hi-0",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 1 | 0.5s-3.2s]\nTRANSCRIPT: Caller: हेलो, क्या मैं रमेश पटेल जी से बात कर रहा हूँ?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 2 | 3.7s-5.7s]\nTRANSCRIPT: Victim: हाँ जी, बोलिए, आप कौन?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-2",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 3 | 6.2s-15.8s]\nTRANSCRIPT: Caller: मैं इंस्पेक्टर विक्रम सिंह, मुंबई साइबर क्राइम ब्रांच से बोल रहा हूँ। आपके आधार कार्ड से एक पार्सल बुक हुआ है जिसमें ड्रग्स और पाँच फर्जी पासपोर्ट मिले हैं।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "raise_scam_alert",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-3",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 4 | 16.3s-18.8s]\nTRANSCRIPT: Victim: क्या? मैंने तो कोई पार्सल नहीं भेजा!"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-4",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 5 | 19.3s-24.9s]\nTRANSCRIPT: Caller: आपके नाम पर मनी लॉन्ड्रिंग का केस दर्ज हुआ है। सीबीआई ने आपके खिलाफ अरेस्ट वारंट जारी कर दिया है।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-5",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 6 | 25.4s-28.1s]\nTRANSCRIPT: Victim: अरे भगवान... अब मैं क्या करूँ?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-6",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 7 | 28.6s-38.5s]\nTRANSCRIPT: Caller: घबराइए मत। अभी से आपको वीडियो कॉल पर रहना होगा, आप डिजिटल अरेस्ट में हैं। कॉल कट मत करना, और किसी को भी, अपने बेटे को भी, कुछ मत बताना, वरना उसे भी गिरफ्तार करेंगे।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-7",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 8 | 39.0s-40.7s]\nTRANSCRIPT: Victim: जी... ठीक है साहब।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-8",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 9 | 41.2s-52.7s]\nTRANSCRIPT: Caller: जाँच के लिए आपके बैंक खाते का सारा पैसा आरबीआई के सुरक्षित खाते में ट्रांसफर करना होगा। जाँच के बाद पैसा वापस मिल जाएगा। दो घंटे के अंदर करना है, नहीं तो पुलिस आपके घर पहुँच जाएगी।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-9",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 10 | 53.2s-54.6s]\nTRANSCRIPT: Victim: कितने पैसे भेजने हैं?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "digital_arrest_hi-10",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 11 | 55.1s-59.5s]\nTRANSCRIPT: Caller: अभी चार लाख रुपये इस खाते में भेजिए। मैं खाता नंबर बताता हूँ, लिखिए जल्दी।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "rakshak",
+    "user_id": "listener",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "fake_courier_hi",
+   "conversation": [
+    {
+     "invocation_id": "fake_courier_hi-0",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 1 | 0.5s-8.3s]\nTRANSCRIPT: Caller: हेलो मैडम, मैं फेडेक्स कूरियर मुंबई से राहुल बोल रहा हूँ। आपके नाम से ताइवान जा रहा एक पार्सल कस्टम्स ने रोक लिया है।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 2 | 8.8s-12.4s]\nTRANSCRIPT: Victim: मेरे नाम से? मैंने तो कोई पार्सल नहीं भेजा।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-2",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 3 | 12.9s-25.9s]\nTRANSCRIPT: Caller: मैडम, उस पार्सल में एमडीएमए ड्रग्स, तीन क्रेडिट कार्ड और एक लैपटॉप मिला है। लगता है किसी ने आपकी आधार डिटेल्स का गलत इस्तेमाल किया है। मैं आपकी कॉल सीधे मुंबई पुलिस को ट्रांसफर कर रहा हूँ।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "raise_scam_alert",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-3",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 4 | 26.4s-28.6s]\nTRANSCRIPT: Victim: ठीक है... हेलो?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-4",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 5 | 29.1s-39.9s]\nTRANSCRIPT: Caller: हेलो, मैं मुंबई पुलिस से सब-इंस्पेक्टर शर्मा बोल रहा हूँ। आपके खिलाफ एफआईआर दर्ज हो चुकी है। वेरिफिकेशन के लिए अपना आधार नंबर और बैंक डिटेल्स बताइए।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-5",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 6 | 40.4s-43.0s]\nTRANSCRIPT: Victim: पर मैंने कुछ गलत नहीं किया है।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-6",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 7 | 43.5s-52.2s]\nTRANSCRIPT: Caller: केस बंद करवाना है तो अभी पचास हज़ार रुपये क्लीयरेंस फीस यूपीआई से भरनी होगी। ऐसा नहीं किया तो आज ही आपकी गिरफ्तारी होगी।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-7",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 8 | 52.7s-55.5s]\nTRANSCRIPT: Victim: मैं एक बार अपने पति से पूछ लूँ?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_courier_hi-8",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 9 | 56.0s-63.9s]\nTRANSCRIPT: Caller: नहीं! यह गोपनीय जाँच है। किसी को भी बताया तो केस और बिगड़ जाएगा। फोन मत काटिए, मैं यूपीआई आईडी भेज रहा हूँ।"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "rakshak",
+    "user_id": "listener",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "fake_kyc_gu",
+   "conversation": [
+    {
+     "invocation_id": "fake_kyc_gu-0",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 1 | 0.5s-7.7s]\nTRANSCRIPT: Caller: નમસ્તે, હું એસબીઆઈ બેંકના કેવાયસી વિભાગમાંથી બોલું છું. શું આપ હસમુખભાઈ શાહ બોલો છો?"
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 2 | 8.2s-9.8s]\nTRANSCRIPT: Victim: હા, બોલો બેન."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-2",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 3 | 10.3s-19.5s]\nTRANSCRIPT: Caller: સાહેબ, તમારું કેવાયસી એક્સપાયર થઈ ગયું છે. આજે રાત્રે બાર વાગ્યા સુધીમાં અપડેટ નહીં કરો તો તમારું ખાતું બ્લોક થઈ જશે."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "raise_scam_alert",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-3",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 4 | 20.0s-22.8s]\nTRANSCRIPT: Victim: અરે, પણ હું તો ગયા મહિને જ બેંકમાં ગયો હતો."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-4",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 5 | 23.3s-33.5s]\nTRANSCRIPT: Caller: એ સિસ્ટમમાં અપડેટ નથી થયું. ચિંતા ન કરો, હું ફોન પર જ કરી આપીશ. તમારા મોબાઈલ પર એક લિંક મોકલી છે, તેમાંથી એનીડેસ્ક એપ ડાઉનલોડ કરો."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-5",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 6 | 34.0s-37.2s]\nTRANSCRIPT: Victim: એપ? મને તો આ બધું બહુ નથી આવડતું."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-6",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 7 | 37.7s-49.8s]\nTRANSCRIPT: Caller: કોઈ વાંધો નહીં. હવે તમારા ફોન પર છ આંકડાનો ઓટીપી આવ્યો હશે, તે મને જલ્દી કહો. નહીં તો તમારા ખાતામાંથી પૈસા કપાઈ જશે અને પેન્શન પણ બંધ થઈ જશે."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-7",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 8 | 50.3s-52.0s]\nTRANSCRIPT: Victim: ઊભા રહો, જોઉં છું..."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    },
+    {
+     "invocation_id": "fake_kyc_gu-8",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "[CALL CHUNK 9 | 52.5s-60.6s]\nTRANSCRIPT: Caller: જલ્દી કરો સાહેબ, માત્ર બે મિનિટ બાકી છે. અને આ વાત ઘરમાં કોઈને ના કહેતા, આ ગુપ્ત વેરિફિકેશન છે."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "log_call_status",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "rakshak",
+    "user_id": "listener",
+    "state": {}
+   }
+  }
+ ]
+}

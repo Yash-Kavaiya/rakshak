@@ -1,0 +1,11 @@
+metrics_to_run:
+  - scam_decision
+  - warning_quality
+
+custom_metrics:
+  # 1 if the agent chose the expected tool (alert vs. log) at this point of the call.
+  - name: scam_decision
+    custom_function_file: scam_decision.py
+  # LLM-as-judge (1-5) on the Hindi/Gujarati warning and named red flags.
+  - name: warning_quality
+    custom_function_file: warning_quality.py

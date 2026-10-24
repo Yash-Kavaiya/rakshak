@@ -1,0 +1,56 @@
+{
+  "id": "fake_kyc_gu",
+  "label": "scam",
+  "language": "gu",
+  "scam_type": "fake_kyc",
+  "alert_line": 2,
+  "expected_flags": [
+    "authority_impersonation",
+    "urgency",
+    "otp_request",
+    "remote_app_install"
+  ],
+  "speakers": {
+    "Caller": "Kore",
+    "Victim": "Puck"
+  },
+  "style": "A realistic phone call recorded in Gujarat, spoken in Gujarati. Caller is a polite but pushy fake bank employee. Victim is an elderly retired man who is not comfortable with smartphones.",
+  "lines": [
+    [
+      "Caller",
+      "નમસ્તે, હું એસબીઆઈ બેંકના કેવાયસી વિભાગમાંથી બોલું છું. શું આપ હસમુખભાઈ શાહ બોલો છો?"
+    ],
+    [
+      "Victim",
+      "હા, બોલો બેન."
+    ],
+    [
+      "Caller",
+      "સાહેબ, તમારું કેવાયસી એક્સપાયર થઈ ગયું છે. આજે રાત્રે બાર વાગ્યા સુધીમાં અપડેટ નહીં કરો તો તમારું ખાતું બ્લોક થઈ જશે."
+    ],
+    [
+      "Victim",
+      "અરે, પણ હું તો ગયા મહિને જ બેંકમાં ગયો હતો."
+    ],
+    [
+      "Caller",
+      "એ સિસ્ટમમાં અપડેટ નથી થયું. ચિંતા ન કરો, હું ફોન પર જ કરી આપીશ. તમારા મોબાઈલ પર એક લિંક મોકલી છે, તેમાંથી એનીડેસ્ક એપ ડાઉનલોડ કરો."
+    ],
+    [
+      "Victim",
+      "એપ? મને તો આ બધું બહુ નથી આવડતું."
+    ],
+    [
+      "Caller",
+      "કોઈ વાંધો નહીં. હવે તમારા ફોન પર છ આંકડાનો ઓટીપી આવ્યો હશે, તે મને જલ્દી કહો. નહીં તો તમારા ખાતામાંથી પૈસા કપાઈ જશે અને પેન્શન પણ બંધ થઈ જશે."
+    ],
+    [
+      "Victim",
+      "ઊભા રહો, જોઉં છું..."
+    ],
+    [
+      "Caller",
+      "જલ્દી કરો સાહેબ, માત્ર બે મિનિટ બાકી છે. અને આ વાત ઘરમાં કોઈને ના કહેતા, આ ગુપ્ત વેરિફિકેશન છે."
+    ]
+  ]
+}

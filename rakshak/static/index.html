@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rakshak — रक्षक</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+<style>
+  :root {
+    --bg: #f6f3ee; --card: #ffffff; --ink: #1d1b19; --muted: #6b645c; --line: #e4ddd3;
+    --safe: #1f8a4c; --warn: #c27c0e; --scam: #c62828; --scam-bg: #fdecea; --accent: #2b4c7e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161412; --card: #211e1b; --ink: #f3eee8; --muted: #a59d93; --line: #39332d;
+            --scam-bg: #3a1614; --accent: #8fb1e8; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 18px/1.5 "Noto Sans", "Noto Sans Devanagari", "Noto Sans Gujarati", system-ui, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  h1 { font-size: 34px; margin: 0; letter-spacing: -0.5px; }
+  h1 span { color: var(--accent); }
+  .tag { color: var(--muted); font-size: 16px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 28px 0 10px; }
+  .calls { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+  .call { background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px;
+          cursor: pointer; text-align: left; color: inherit; font: inherit; transition: border-color .15s; }
+  .call:hover, .call:focus-visible { border-color: var(--accent); outline: none; }
+  .call.active { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+  .call b { display: block; font-size: 18px; }
+  .call small { color: var(--muted); font-size: 14px; }
+  .pill { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 99px; margin-top: 6px;
+          border: 1px solid var(--line); color: var(--muted); }
+  .mic { border-style: dashed; }
+  .phone { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; margin-top: 18px; }
+  .status { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 600; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; background: var(--muted); flex: none; }
+  .dot.safe { background: var(--safe); } .dot.suspicious { background: var(--warn); } .dot.scam { background: var(--scam); }
+  .dot.live { animation: pulse 1.2s infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .bar { height: 10px; background: var(--line); border-radius: 99px; margin: 14px 0 4px; position: relative; overflow: hidden; }
+  .bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--accent); border-radius: 99px; }
+  .bar u { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--scam); display: none; }
+  .times { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; }
+  ol.timeline { list-style: none; padding: 0; margin: 14px 0 0; max-height: 300px; overflow-y: auto; }
+  .timeline li { display: grid; grid-template-columns: 92px 18px 1fr; gap: 10px; align-items: start;
+                 padding: 7px 0; border-top: 1px solid var(--line); font-size: 16px; }
+  .timeline time { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .timeline .dot { width: 12px; height: 12px; margin-top: 7px; }
+  .alert { display: none; margin-top: 18px; border: 3px solid var(--scam); background: var(--scam-bg);
+           border-radius: 18px; padding: 20px 22px; }
+  .alert.show { display: block; animation: pop .35s ease-out; }
+  @keyframes pop { from { transform: scale(.97); opacity: 0; } }
+  .alert h3 { margin: 0 0 4px; color: var(--scam); font-size: 30px; line-height: 1.25; }
+  .alert .when { color: var(--muted); font-size: 15px; }
+  .alert .msg { font-size: 24px; font-weight: 600; margin: 14px 0 6px; }
+  .alert .msg.gu { font-weight: 500; font-size: 22px; }
+  .flags { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 6px; }
+  .flag { background: var(--card); border: 1px solid var(--scam); color: var(--scam); border-radius: 10px;
+          padding: 6px 10px; font-size: 15px; font-weight: 600; }
+  .flag small { display: block; color: var(--muted); font-weight: 400; font-size: 13px; }
+  .heard { color: var(--muted); font-size: 15px; margin-top: 8px; }
+  .safe-box { display: none; margin-top: 18px; border: 2px solid var(--safe); border-radius: 18px; padding: 16px 20px;
+              font-size: 22px; font-weight: 600; color: var(--safe); }
+  .safe-box.show { display: block; }
+  button.ctl { font: inherit; font-size: 16px; padding: 8px 16px; border-radius: 10px; border: 1px solid var(--line);
+               background: var(--card); color: inherit; cursor: pointer; margin-top: 12px; }
+  footer { color: var(--muted); font-size: 14px; margin-top: 32px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>🛡️ Rakshak <span>रक्षक</span></h1>
+    <div class="tag">Listens to the call with you · scam warning in Hindi &amp; Gujarati</div>
+  </header>
+
+  <h2>Pick a call to play</h2>
+  <div class="calls" id="calls"></div>
+
+  <section class="phone" aria-live="polite">
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText">कोई कॉल नहीं · No call</span></div>
+    <div class="bar"><i id="progress"></i><u id="alertMark"></u></div>
+    <div class="times"><span id="tNow">0:00</span><span id="tTotal">0:00</span></div>
+    <audio id="player" preload="auto"></audio>
+    <button class="ctl" id="stopBtn" hidden>■ Stop</button>
+
+    <div class="alert" id="alert" role="alert">
+      <h3>⚠️ सावधान! यह फ्रॉड कॉल है<br>ચેતજો! આ છેતરપિંડીનો કૉલ છે</h3>
+      <div class="when" id="alertWhen"></div>
+      <div class="msg" id="msgHi"></div>
+      <div class="msg gu" id="msgGu"></div>
+      <div class="flags" id="flags"></div>
+      <div class="heard" id="evidence"></div>
+      <button class="ctl" id="replayBtn">🔊 फिर से सुनाओ / ફરી સંભળાવો</button>
+    </div>
+    <div class="safe-box" id="safeBox">✅ कॉल सुरक्षित लगी · કૉલ સુરક્ષિત લાગ્યો — no scam signs heard</div>
+
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <footer>Audio is analysed in ~5 second chunks by Gemini (via Google ADK) while the call plays: no browser speech recognition.</footer>
+</main>
+
+<script>
+const FLAG_NAMES = {
+  urgency: ["जल्दबाज़ी का दबाव", "ઉતાવળનું દબાણ"],
+  threat_or_arrest: ["गिरफ्तारी / धमकी", "ધરપકડ / ધમકી"],
+  otp_request: ["OTP माँगा", "OTP માંગ્યો"],
+  money_transfer: ["पैसे भेजने को कहा", "પૈસા મોકલવા કહ્યું"],
+  authority_impersonation: ["नकली पुलिस / बैंक", "નકલી પોલીસ / બેંક"],
+  secrecy_isolation: ["किसी को मत बताना", "કોઈને ન કહેવું"],
+  remote_app_install: ["ऐप डाउनलोड करवाया", "એપ ડાઉનલોડ કરાવી"],
+  personal_data_request: ["आधार / बैंक डिटेल माँगी", "આધાર / બેંક વિગત માંગી"],
+};
+const TITLES = {
+  digital_arrest_hi: "Digital arrest · डिजिटल अरेस्ट",
+  fake_kyc_gu: "Fake KYC · નકલી KYC",
+  fake_courier_hi: "Fake courier · नकली कूरियर",
+  genuine_gu: "Son calls mother · દીકરાનો ફોન",
+  genuine_bank_hi: "Real bank reminder · असली बैंक",
+};
+const LANG = { hi: "Hindi", gu: "Gujarati" };
+const $ = (id) => document.getElementById(id);
+const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+let source = null, ws = null, mic = null, total = 0, lastAlert = null, warningAudio = null;
+
+function setStatus(level, text, live = true) {
+  $("dot").className = `dot ${level || ""} ${live ? "live" : ""}`;
+  $("statusText").textContent = text;
+}
+function reset() {
+  source?.close(); source = null;
+  ws?.close(); ws = null;
+  mic?.stop(); mic = null;
+  warningAudio?.pause();
+  $("player").pause();
+  $("timeline").innerHTML = "";
+  $("alert").classList.remove("show");
+  $("safeBox").classList.remove("show");
+  $("alertMark").style.display = "none";
+  $("progress").style.width = "0";
+  $("stopBtn").hidden = true;
+  lastAlert = null;
+}
+function addRow(ev) {
+  const li = document.createElement("li");
+  const level = ev.type === "alert" ? "scam" : ev.risk_level;
+  const text = ev.type === "alert" ? `⚠️ ALERT: ${ev.alert.evidence}` : ev.heard;
+  li.innerHTML = `<time>${fmt(ev.start)}–${fmt(ev.end)}</time><span class="dot ${level}"></span><span></span>`;
+  li.lastChild.textContent = text;
+  $("timeline").prepend(li);
+}
+async function sayWarning(a) {
+  warningAudio?.pause();
+  $("player").volume = 0.25;
+  for (const [text, lang] of [[a.warning_hindi, "hi"], [a.warning_gujarati, "gu"]]) {
+    try {
+      warningAudio = new Audio(`/api/speak?lang=${lang}&text=${encodeURIComponent(text)}`);
+      await warningAudio.play();
+      await new Promise((r) => (warningAudio.onended = r));
+    } catch (e) { console.warn("tts failed", e); }
+  }
+  $("player").volume = 1;
+}
+function showAlert(ev) {
+  const a = (lastAlert = ev.alert);
+  $("msgHi").textContent = a.warning_hindi;
+  $("msgGu").textContent = a.warning_gujarati;
+  $("evidence").textContent = `सुना गया · Heard: “${a.evidence}”`;
+  $("alertWhen").textContent = `Detected at ${fmt(ev.end)}${total ? ` of ${fmt(total)}` : ""} · call still going · ${Math.round(a.confidence * 100)}% sure`;
+  $("flags").innerHTML = "";
+  for (const f of a.red_flags) {
+    const [hi, gu] = FLAG_NAMES[f] || [f, ""];
+    const el = document.createElement("div");
+    el.className = "flag";
+    el.innerHTML = `${hi}<small>${gu} · ${f.replaceAll("_", " ")}</small>`;
+    $("flags").append(el);
+  }
+  $("alert").classList.add("show");
+  if (total) { $("alertMark").style.left = `${(ev.end / total) * 100}%`; $("alertMark").style.display = "block"; }
+  setStatus("scam", "फ्रॉड! फोन काट दीजिए · Scam — hang up", true);
+  sayWarning(a);
+}
+function handle(ev) {
+  if (ev.type === "chunk") {
+    addRow(ev);
+    if (!lastAlert) setStatus(ev.risk_level, ev.risk_level === "suspicious" ? "ध्यान से सुन रहा हूँ… · Suspicious" : "सुन रहा हूँ… · Listening, looks safe");
+  } else if (ev.type === "alert") {
+    addRow(ev); showAlert(ev);
+  } else if (ev.type === "done") {
+    if (ev.verdict === "safe") { $("safeBox").classList.add("show"); setStatus("safe", "कॉल खत्म · Call ended — safe", false); }
+    else setStatus("scam", "कॉल खत्म · Call ended — scam", false);
+    source?.close(); $("stopBtn").hidden = true;
+  }
+}
+function playCall(call, btn) {
+  reset();
+  document.querySelectorAll(".call").forEach((b) => b.classList.toggle("active", b === btn));
+  total = call.duration;
+  $("tTotal").textContent = fmt(total);
+  const player = $("player");
+  player.src = `/calls/${call.id}.wav`;
+  player.currentTime = 0;
+  setStatus("", "कॉल चल रही है… · Call in progress");
+  $("stopBtn").hidden = false;
+  // Start audio and analysis together; the server paces chunks to wall-clock time.
+  player.play().catch(() => {});
+  source = new EventSource(`/api/monitor/${call.id}`);
+  source.onmessage = (m) => handle(JSON.parse(m.data));
+  source.onerror = () => { source?.close(); };
+}
+$("player").ontimeupdate = () => {
+  const p = $("player");
+  if (total) $("progress").style.width = `${(p.currentTime / total) * 100}%`;
+  $("tNow").textContent = fmt(p.currentTime);
+};
+$("stopBtn").onclick = () => { ws?.readyState === 1 && ws.send("stop"); mic?.stop(); source?.close(); $("player").pause(); setStatus("", "Stopped", false); };
+$("replayBtn").onclick = () => lastAlert && sayWarning(lastAlert);
+
+async function startMic(btn) {
+  reset();
+  document.querySelectorAll(".call").forEach((b) => b.classList.toggle("active", b === btn));
+  total = 0; $("tTotal").textContent = "live";
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false } });
+  const ctx = new AudioContext({ sampleRate: 16000 });
+  const worklet = `class P extends AudioWorkletProcessor { process(i) { const c = i[0][0]; if (c) this.port.postMessage(c.slice(0)); return true; } }
+                   registerProcessor("pcm", P);`;
+  await ctx.audioWorklet.addModule(URL.createObjectURL(new Blob([worklet], { type: "text/javascript" })));
+  const node = new AudioWorkletNode(ctx, "pcm");
+  ctx.createMediaStreamSource(stream).connect(node);
+  ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/listen`);
+  ws.onmessage = (m) => handle(JSON.parse(m.data));
+  const started = performance.now();
+  node.port.onmessage = (e) => {
+    if (ws.readyState !== 1) return;
+    const f = e.data, out = new Int16Array(f.length);
+    for (let i = 0; i < f.length; i++) out[i] = Math.max(-1, Math.min(1, f[i])) * 0x7fff;
+    ws.send(out.buffer);
+    $("tNow").textContent = fmt((performance.now() - started) / 1000);
+  };
+  mic = { stop() { stream.getTracks().forEach((t) => t.stop()); ctx.close(); } };
+  setStatus("", "माइक से सुन रहा हूँ… · Listening on microphone");
+  $("stopBtn").hidden = false;
+}
+
+fetch("/api/calls").then((r) => r.json()).then((calls) => {
+  for (const c of calls) {
+    const b = document.createElement("button");
+    b.className = "call";
+    b.innerHTML = `<b></b><small>${LANG[c.language] || c.language} · ${fmt(c.duration)}</small><br><span class="pill">${c.label === "genuine" ? "genuine call" : "scam call"}</span>`;
+    b.querySelector("b").textContent = TITLES[c.id] || c.id;
+    b.onclick = () => playCall(c, b);
+    $("calls").append(b);
+  }
+  const m = document.createElement("button");
+  m.className = "call mic";
+  m.innerHTML = `<b>🎙️ Live microphone</b><small>Put a real call on speaker</small>`;
+  m.onclick = () => startMic(m).catch((e) => setStatus("", `Mic error: ${e.message}`, false));
+  $("calls").append(m);
+});
+</script>
+</body>
+</html>

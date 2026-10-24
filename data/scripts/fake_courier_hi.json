@@ -1,0 +1,56 @@
+{
+  "id": "fake_courier_hi",
+  "label": "scam",
+  "language": "hi",
+  "scam_type": "fake_courier",
+  "alert_line": 2,
+  "expected_flags": [
+    "authority_impersonation",
+    "threat_or_arrest",
+    "money_transfer",
+    "secrecy_isolation"
+  ],
+  "speakers": {
+    "Caller": "Fenrir",
+    "Victim": "Aoede"
+  },
+  "style": "A realistic phone call recorded in India, in Hindi with some English words. Caller first sounds like a courier agent, then pretends to be a police officer and becomes threatening. Victim is a middle-aged housewife who gets nervous.",
+  "lines": [
+    [
+      "Caller",
+      "हेलो मैडम, मैं फेडेक्स कूरियर मुंबई से राहुल बोल रहा हूँ। आपके नाम से ताइवान जा रहा एक पार्सल कस्टम्स ने रोक लिया है।"
+    ],
+    [
+      "Victim",
+      "मेरे नाम से? मैंने तो कोई पार्सल नहीं भेजा।"
+    ],
+    [
+      "Caller",
+      "मैडम, उस पार्सल में एमडीएमए ड्रग्स, तीन क्रेडिट कार्ड और एक लैपटॉप मिला है। लगता है किसी ने आपकी आधार डिटेल्स का गलत इस्तेमाल किया है। मैं आपकी कॉल सीधे मुंबई पुलिस को ट्रांसफर कर रहा हूँ।"
+    ],
+    [
+      "Victim",
+      "ठीक है... हेलो?"
+    ],
+    [
+      "Caller",
+      "हेलो, मैं मुंबई पुलिस से सब-इंस्पेक्टर शर्मा बोल रहा हूँ। आपके खिलाफ एफआईआर दर्ज हो चुकी है। वेरिफिकेशन के लिए अपना आधार नंबर और बैंक डिटेल्स बताइए।"
+    ],
+    [
+      "Victim",
+      "पर मैंने कुछ गलत नहीं किया है।"
+    ],
+    [
+      "Caller",
+      "केस बंद करवाना है तो अभी पचास हज़ार रुपये क्लीयरेंस फीस यूपीआई से भरनी होगी। ऐसा नहीं किया तो आज ही आपकी गिरफ्तारी होगी।"
+    ],
+    [
+      "Victim",
+      "मैं एक बार अपने पति से पूछ लूँ?"
+    ],
+    [
+      "Caller",
+      "नहीं! यह गोपनीय जाँच है। किसी को भी बताया तो केस और बिगड़ जाएगा। फोन मत काटिए, मैं यूपीआई आईडी भेज रहा हूँ।"
+    ]
+  ]
+}

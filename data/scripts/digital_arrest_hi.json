@@ -1,0 +1,65 @@
+{
+  "id": "digital_arrest_hi",
+  "label": "scam",
+  "language": "hi",
+  "scam_type": "digital_arrest",
+  "alert_line": 2,
+  "expected_flags": [
+    "authority_impersonation",
+    "threat_or_arrest",
+    "money_transfer",
+    "secrecy_isolation",
+    "urgency"
+  ],
+  "speakers": {
+    "Caller": "Charon",
+    "Victim": "Puck"
+  },
+  "style": "A realistic phone call recorded in India. Caller is a stern, fast-talking fake police officer using authority and pressure. Victim is a worried elderly man whose voice becomes scared.",
+  "lines": [
+    [
+      "Caller",
+      "हेलो, क्या मैं रमेश पटेल जी से बात कर रहा हूँ?"
+    ],
+    [
+      "Victim",
+      "हाँ जी, बोलिए, आप कौन?"
+    ],
+    [
+      "Caller",
+      "मैं इंस्पेक्टर विक्रम सिंह, मुंबई साइबर क्राइम ब्रांच से बोल रहा हूँ। आपके आधार कार्ड से एक पार्सल बुक हुआ है जिसमें ड्रग्स और पाँच फर्जी पासपोर्ट मिले हैं।"
+    ],
+    [
+      "Victim",
+      "क्या? मैंने तो कोई पार्सल नहीं भेजा!"
+    ],
+    [
+      "Caller",
+      "आपके नाम पर मनी लॉन्ड्रिंग का केस दर्ज हुआ है। सीबीआई ने आपके खिलाफ अरेस्ट वारंट जारी कर दिया है।"
+    ],
+    [
+      "Victim",
+      "अरे भगवान... अब मैं क्या करूँ?"
+    ],
+    [
+      "Caller",
+      "घबराइए मत। अभी से आपको वीडियो कॉल पर रहना होगा, आप डिजिटल अरेस्ट में हैं। कॉल कट मत करना, और किसी को भी, अपने बेटे को भी, कुछ मत बताना, वरना उसे भी गिरफ्तार करेंगे।"
+    ],
+    [
+      "Victim",
+      "जी... ठीक है साहब।"
+    ],
+    [
+      "Caller",
+      "जाँच के लिए आपके बैंक खाते का सारा पैसा आरबीआई के सुरक्षित खाते में ट्रांसफर करना होगा। जाँच के बाद पैसा वापस मिल जाएगा। दो घंटे के अंदर करना है, नहीं तो पुलिस आपके घर पहुँच जाएगी।"
+    ],
+    [
+      "Victim",
+      "कितने पैसे भेजने हैं?"
+    ],
+    [
+      "Caller",
+      "अभी चार लाख रुपये इस खाते में भेजिए। मैं खाता नंबर बताता हूँ, लिखिए जल्दी।"
+    ]
+  ]
+}

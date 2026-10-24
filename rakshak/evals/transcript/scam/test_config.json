@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "tool_trajectory_avg_score": {
+      "threshold": 0.75,
+      "match_type": "EXACT",
+      "ignore_args": true
+    },
+    "rubric_based_tool_use_quality_v1": {
+      "threshold": 0.7,
+      "judge_model_options": {
+        "judge_model": "gemini-3.8-flash",
+        "num_samples": 1
+      },
+      "rubrics": [
+        {
+          "rubric_id": "hindi_warning",
+          "rubric_content": {
+            "text_property": "Whenever raise_scam_alert is called, its warning_hindi argument is in Hindi (Devanagari script), at most two short simple sentences, and says why the call is fake or what to do (for example hang up). If raise_scam_alert is not called in this turn, this rubric is satisfied."
+          }
+        },
+        {
+          "rubric_id": "gujarati_warning",
+          "rubric_content": {
+            "text_property": "Whenever raise_scam_alert is called, its warning_gujarati argument is in Gujarati script and is simple and short. If raise_scam_alert is not called in this turn, this rubric is satisfied."
+          }
+        },
+        {
+          "rubric_id": "names_red_flags",
+          "rubric_content": {
+            "text_property": "Whenever raise_scam_alert is called, its red_flags argument includes authority_impersonation when the caller has claimed to be police, CBI, a bank, customs or courier official. If raise_scam_alert is not called in this turn, this rubric is satisfied."
+          }
+        }
+      ]
+    }
+  }
+}

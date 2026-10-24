@@ -1,0 +1,22 @@
+{
+  "id": "genuine_bank_hi",
+  "label": "genuine",
+  "language": "hi",
+  "scam_type": "none",
+  "alert_line": null,
+  "expected_flags": [],
+  "speakers": {
+    "Banker": "Kore",
+    "Customer": "Charon"
+  },
+  "style": "A calm, polite courtesy call in Hindi from a real bank relationship manager to an elderly customer. No pressure, friendly tone.",
+  "lines": [
+    ["Banker", "नमस्ते शर्मा जी, मैं बैंक ऑफ़ बड़ौदा, मणिनगर ब्रांच से प्रिया बोल रही हूँ। आपकी एफडी अगले हफ्ते मैच्योर हो रही है, बस यही बताने के लिए फोन किया।"],
+    ["Customer", "अच्छा अच्छा, धन्यवाद बेटा। तो मुझे क्या करना होगा?"],
+    ["Banker", "कुछ जल्दी नहीं है। जब आपको सुविधा हो, ब्रांच आ जाइए, हम आपको नई ब्याज दरें बता देंगे, फिर आप तय कर लीजिए।"],
+    ["Customer", "ठीक है, मैं सोमवार को बेटे के साथ आ जाऊँगा।"],
+    ["Banker", "बहुत बढ़िया। और एक बात याद रखिए, बैंक कभी भी फोन पर ओटीपी या पिन नहीं माँगता। कोई माँगे तो फोन काट दीजिए।"],
+    ["Customer", "हाँ, टीवी पर भी यही सुना है। धन्यवाद।"],
+    ["Banker", "आपका दिन शुभ हो शर्मा जी, नमस्ते।"]
+  ]
+}

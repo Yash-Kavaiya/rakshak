@@ -1,0 +1,172 @@
+{
+ "eval_cases": [
+  {
+   "eval_case_id": "digital_arrest_hi__upto_line_0",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-3.2s]\nTRANSCRIPT: Caller: हेलो, क्या मैं रमेश पटेल जी से बात कर रहा हूँ?"
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: log_call_status"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "digital_arrest_hi__upto_line_3",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-18.8s]\nTRANSCRIPT: Caller: हेलो, क्या मैं रमेश पटेल जी से बात कर रहा हूँ? Victim: हाँ जी, बोलिए, आप कौन? Caller: मैं इंस्पेक्टर विक्रम सिंह, मुंबई साइबर क्राइम ब्रांच से बोल रहा हूँ। आपके आधार कार्ड से एक पार्सल बुक हुआ है जिसमें ड्रग्स और पाँच फर्जी पासपोर्ट मिले हैं। Victim: क्या? मैंने तो कोई पार्सल नहीं भेजा!"
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: raise_scam_alert"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "fake_courier_hi__upto_line_0",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-8.3s]\nTRANSCRIPT: Caller: हेलो मैडम, मैं फेडेक्स कूरियर मुंबई से राहुल बोल रहा हूँ। आपके नाम से ताइवान जा रहा एक पार्सल कस्टम्स ने रोक लिया है।"
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: log_call_status"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "fake_courier_hi__upto_line_3",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-28.6s]\nTRANSCRIPT: Caller: हेलो मैडम, मैं फेडेक्स कूरियर मुंबई से राहुल बोल रहा हूँ। आपके नाम से ताइवान जा रहा एक पार्सल कस्टम्स ने रोक लिया है। Victim: मेरे नाम से? मैंने तो कोई पार्सल नहीं भेजा। Caller: मैडम, उस पार्सल में एमडीएमए ड्रग्स, तीन क्रेडिट कार्ड और एक लैपटॉप मिला है। लगता है किसी ने आपकी आधार डिटेल्स का गलत इस्तेमाल किया है। मैं आपकी कॉल सीधे मुंबई पुलिस को ट्रांसफर कर रहा हूँ। Victim: ठीक है... हेलो?"
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: raise_scam_alert"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "fake_kyc_gu__upto_line_0",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-7.7s]\nTRANSCRIPT: Caller: નમસ્તે, હું એસબીઆઈ બેંકના કેવાયસી વિભાગમાંથી બોલું છું. શું આપ હસમુખભાઈ શાહ બોલો છો?"
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: log_call_status"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "fake_kyc_gu__upto_line_3",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-22.8s]\nTRANSCRIPT: Caller: નમસ્તે, હું એસબીઆઈ બેંકના કેવાયસી વિભાગમાંથી બોલું છું. શું આપ હસમુખભાઈ શાહ બોલો છો? Victim: હા, બોલો બેન. Caller: સાહેબ, તમારું કેવાયસી એક્સપાયર થઈ ગયું છે. આજે રાત્રે બાર વાગ્યા સુધીમાં અપડેટ નહીં કરો તો તમારું ખાતું બ્લોક થઈ જશે. Victim: અરે, પણ હું તો ગયા મહિને જ બેંકમાં ગયો હતો."
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: raise_scam_alert"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "genuine_bank_hi__upto_line_6",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-44.4s]\nTRANSCRIPT: Banker: नमस्ते शर्मा जी, मैं बैंक ऑफ़ बड़ौदा, मणिनगर ब्रांच से प्रिया बोल रही हूँ। आपकी एफडी अगले हफ्ते मैच्योर हो रही है, बस यही बताने के लिए फोन किया। Customer: अच्छा अच्छा, धन्यवाद बेटा। तो मुझे क्या करना होगा? Banker: कुछ जल्दी नहीं है। जब आपको सुविधा हो, ब्रांच आ जाइए, हम आपको नई ब्याज दरें बता देंगे, फिर आप तय कर लीजिए। Customer: ठीक है, मैं सोमवार को बेटे के साथ आ जाऊँगा। Banker: बहुत बढ़िया। और एक बात याद रखिए, बैंक कभी भी फोन पर ओटीपी या पिन नहीं माँगता। कोई माँगे तो फोन काट दीजिए। Customer: हाँ, टीवी पर भी यही सुना है। धन्यवाद। Banker: आपका दिन शुभ हो शर्मा जी, नमस्ते।"
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: log_call_status"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eval_case_id": "genuine_gu__upto_line_8",
+   "prompt": {
+    "role": "user",
+    "parts": [
+     {
+      "text": "[CALL CHUNK 1 | 0.5s-57.2s]\nTRANSCRIPT: Son: હેલો મમ્મી, કેમ છો? હું રાહુલ બોલું છું. Mother: અરે બેટા, મજામાં. તું કેમ છે? જમ્યો કે નહીં? Son: હા મમ્મી, હમણાં જ જમ્યો. સાંભળ, કાલે સવારે દસ વાગ્યે ડૉક્ટર મહેતા પાસે તારી ઍપોઇન્ટમેન્ટ છે, ઘૂંટણ બતાવવા માટે. હું નવ વાગ્યે ગાડી લઈને આવી જઈશ. Mother: સારું બેટા. અને હા, બેંકમાંથી મેસેજ આવ્યો હતો કે કેવાયસી અપડેટ કરવાનું છે. Son: હા મમ્મી, એ માટે આપણે કાલે ડૉક્ટર પછી સીધા બ્રાન્ચમાં જઈશું. આધાર કાર્ડ અને ફોટો સાથે લઈ લેજે. અને યાદ રાખજે, ફોન પર કોઈ ઓટીપી માંગે તો ક્યારેય આપવાનો નહીં. Mother: હા હા, ખબર છે. પપ્પાની દવા પણ લેતો આવજે. Son: ચોક્કસ. ને રવિવારે નીતા અને બાળકો પણ આવવાના છે, તું ઢોકળા બનાવજે! Mother: સારું બેટા, ધ્યાન રાખજે. જય શ્રી કૃષ્ણ. Son: જય શ્રી કૃષ્ણ મમ્મી."
+     }
+    ]
+   },
+   "reference": {
+    "response": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "EXPECT: log_call_status"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
