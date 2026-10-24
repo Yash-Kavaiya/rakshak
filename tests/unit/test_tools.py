@@ -101,3 +101,16 @@ def test_tools_skip_llm_summarization_for_low_latency():
     tc = ctx()
     _alert(tc)
     assert tc.actions.skip_summarization is True
+
+
+def test_non_numeric_confidence_does_not_crash_the_turn():
+    tc = ctx()
+    result = _alert(tc, confidence="high")
+    assert result["status"] == "alert_raised"
+    assert tc.state["alert"]["confidence"] == 0.0
+
+
+def test_scam_type_is_normalised():
+    tc = ctx()
+    _alert(tc, scam_type=" Fake KYC ")
+    assert tc.state["alert"]["scam_type"] == "fake_kyc"

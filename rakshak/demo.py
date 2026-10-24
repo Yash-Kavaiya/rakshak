@@ -11,12 +11,8 @@ import asyncio
 import sys
 import threading
 
-from dotenv import load_dotenv
-
-load_dotenv(override=True)
-
-from rakshak.monitor import CallMonitor  # noqa: E402
-from rakshak.tools import RED_FLAGS  # noqa: E402
+from rakshak.monitor import CallMonitor
+from rakshak.tools import RED_FLAGS
 
 RED, GREEN, YELLOW, BOLD, RESET = (
     "\033[91m",

@@ -4,16 +4,16 @@ from __future__ import annotations
 
 import asyncio
 import functools
+import logging
 import os
 
 import numpy as np
-from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
 from rakshak.audio import to_wav_bytes
 
-load_dotenv(override=True)
+logger = logging.getLogger(__name__)
 
 TTS_MODEL = os.getenv("RAKSHAK_TTS_MODEL", "gemini-3.8-flash-tts")
 _STYLE = {
@@ -67,4 +67,5 @@ def speak(text: str, lang: str = "hi", voice: str = "Kore") -> bytes:
         return to_wav_bytes(pcm, 24000)
     except Exception:
         # Robust fallback to native high-quality Hindi/Gujarati neural voices
+        logger.warning("Gemini TTS failed; falling back to Edge TTS", exc_info=True)
         return asyncio.run(_speak_edge_tts(text, lang))

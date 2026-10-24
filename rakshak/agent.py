@@ -5,12 +5,15 @@ import re
 
 from dotenv import load_dotenv
 from google.adk.agents import Agent
+from google.adk.agents.callback_context import CallbackContext
 from google.adk.apps import App
 from google.adk.models import Gemini
 from google.genai import types
 
 from rakshak.tools import RED_FLAGS, log_call_status, raise_scam_alert
 
+# The package __init__ imports this module first, so every `rakshak.*` import
+# (server, demo, tts) sees .env before reading any setting.
 load_dotenv(override=True)
 
 MODEL = os.getenv("RAKSHAK_MODEL", "gemini-3.5-flash")
@@ -73,17 +76,18 @@ List every red flag you have heard so far in `red_flags`.
 _CHUNK_HEADER = re.compile(r"\[CALL CHUNK (\d+)")
 
 
-def track_chunk(callback_context) -> None:
+def track_chunk(callback_context: CallbackContext) -> None:
     """Record which chunk this turn is, from its `[CALL CHUNK n | ...]` header, so
     tools tag state correctly however the agent is driven (monitor, adk web, evals)."""
     content = callback_context.user_content
-    text = " ".join(p.text for p in (content.parts if content else []) if p.text)
+    parts = (content.parts if content else None) or []
+    text = " ".join(p.text for p in parts if p.text)
     match = _CHUNK_HEADER.search(text)
     if match:
         callback_context.state["current_chunk"] = int(match.group(1)) - 1
 
 
-def chunk_verdict(callback_context) -> types.Content | None:
+def chunk_verdict(callback_context: CallbackContext) -> types.Content | None:
     """Turn this chunk's tool decision into the agent's final text, without another
     model call (the tools skip LLM summarisation for latency)."""
     state = callback_context.state

@@ -11,35 +11,35 @@
 from __future__ import annotations
 
 import asyncio
+import functools
 import json
 from pathlib import Path
 
 import numpy as np
-from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, Response, StreamingResponse
 
-load_dotenv(override=True)
-
-from rakshak.audio import SAMPLE_RATE, AudioChunk, duration, to_wav_bytes  # noqa: E402
-from rakshak.monitor import CallMonitor  # noqa: E402
-from rakshak.tools import RED_FLAGS  # noqa: E402
+from rakshak.audio import SAMPLE_RATE, AudioChunk, duration, to_wav_bytes
+from rakshak.monitor import CallMonitor
+from rakshak.tools import RED_FLAGS
 
 ROOT = Path(__file__).resolve().parents[1]
 CALLS = ROOT / "data" / "calls"
 SCRIPTS = ROOT / "data" / "scripts"
 STATIC = Path(__file__).parent / "static"
 CHUNK_SECONDS = 5.0
+BYTES_PER_SAMPLE = 2  # int16 PCM
+# Once the mic stops, a leftover tail shorter than this is too short to judge.
+MIN_TAIL_BYTES = SAMPLE_RATE * BYTES_PER_SAMPLE
+MAX_SPEAK_CHARS = 400
 
 app = FastAPI(title="Rakshak")
-_monitor: CallMonitor | None = None
 
 
+@functools.cache
 def monitor() -> CallMonitor:
-    global _monitor
-    if _monitor is None:
-        _monitor = CallMonitor()
-    return _monitor
+    """One agent runner per process, built lazily so importing stays cheap."""
+    return CallMonitor()
 
 
 def _call_ids() -> list[str]:
@@ -108,9 +108,22 @@ async def monitor_call(call_id: str, chunk: float = CHUNK_SECONDS) -> StreamingR
 async def speak_warning(text: str, lang: str = "hi") -> Response:
     from rakshak.tts import speak
 
-    wav = await asyncio.to_thread(speak, text[:400], lang)
+    text = text.strip()
+    if not text:
+        raise HTTPException(422, "text must not be blank")
+    wav = await asyncio.to_thread(speak, text[:MAX_SPEAK_CHARS], lang)
     media_type = "audio/wav" if wav.startswith(b"RIFF") else "audio/mpeg"
     return Response(wav, media_type=media_type)
+
+
+def _take_pcm(buffer: bytearray) -> bytes:
+    """Drain every whole int16 sample from `buffer`, leaving any odd trailing byte
+    in place so the next WebSocket frame completes it instead of shifting the
+    sample alignment of the rest of the call."""
+    whole = len(buffer) - len(buffer) % BYTES_PER_SAMPLE
+    data = bytes(buffer[:whole])
+    del buffer[:whole]
+    return data
 
 
 @app.websocket("/ws/listen")
@@ -122,7 +135,7 @@ async def listen(ws: WebSocket) -> None:
     offset = 0.0
     index = 0
     stopped = asyncio.Event()
-    step = int(CHUNK_SECONDS * SAMPLE_RATE) * 2
+    step = int(CHUNK_SECONDS * SAMPLE_RATE) * BYTES_PER_SAMPLE
 
     async def receive():
         try:
@@ -138,13 +151,12 @@ async def listen(ws: WebSocket) -> None:
 
     receiver = asyncio.create_task(receive())
     try:
-        while not (stopped.is_set() and len(buffer) < 2 * SAMPLE_RATE):
+        while not (stopped.is_set() and len(buffer) < MIN_TAIL_BYTES):
             if len(buffer) < step and not stopped.is_set():
                 await asyncio.sleep(0.2)
                 continue
             # Take everything heard so far: if the model was slow we catch up in one turn.
-            data, buffer[:] = bytes(buffer[: len(buffer) - len(buffer) % 2]), b""
-            pcm = np.frombuffer(data, dtype=np.int16)
+            pcm = np.frombuffer(_take_pcm(buffer), dtype=np.int16)
             secs = len(pcm) / SAMPLE_RATE
             chunk = AudioChunk(
                 index, round(offset, 2), round(offset + secs, 2), to_wav_bytes(pcm)
