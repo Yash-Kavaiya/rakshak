@@ -24,6 +24,30 @@ SCAM_TYPES = {"digital_arrest", "fake_kyc", "fake_courier", "other"}
 RISK_LEVELS = {"safe", "suspicious", "scam"}
 
 
+def _normalise_id(value: str) -> str:
+    return value.strip().lower().replace(" ", "_")
+
+
+def _split_flags(red_flags: list[str]) -> tuple[list[str], list[str]]:
+    """Return (known flag ids in first-seen order without repeats, unknown inputs)."""
+    flags, ignored = [], []
+    for flag in red_flags:
+        key = _normalise_id(flag)
+        if key not in RED_FLAGS:
+            ignored.append(flag)
+        elif key not in flags:
+            flags.append(key)
+    return flags, ignored
+
+
+def _clamp_confidence(confidence: float | str) -> float:
+    """Coerce the model's confidence into [0, 1]; unparsable values count as 0."""
+    try:
+        return max(0.0, min(1.0, float(confidence)))
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def raise_scam_alert(
     scam_type: str,
     red_flags: list[str],
@@ -51,21 +75,14 @@ def raise_scam_alert(
     # The tool result is the whole answer for this chunk: skip the follow-up LLM
     # call so each chunk costs one model round-trip.
     tool_context.actions.skip_summarization = True
-    flags, ignored = [], []
-    for flag in red_flags:
-        key = flag.strip().lower().replace(" ", "_")
-        if key in RED_FLAGS:
-            if key not in flags:
-                flags.append(key)
-        else:
-            ignored.append(flag)
+    flags, ignored = _split_flags(red_flags)
     if not flags:
         return {
             "status": "rejected",
             "reason": f"No valid red flags. Use ids from: {sorted(RED_FLAGS)}",
         }
 
-    confidence = max(0.0, min(1.0, float(confidence)))
+    confidence = _clamp_confidence(confidence)
     existing = tool_context.state.get("alert")
     if existing:
         merged = dict(existing)
@@ -76,6 +93,7 @@ def raise_scam_alert(
         tool_context.state["alert"] = merged
         return {"status": "already_alerted", "red_flags": merged["red_flags"]}
 
+    scam_type = _normalise_id(scam_type)
     alert = {
         "scam_type": scam_type if scam_type in SCAM_TYPES else "other",
         "red_flags": flags,
@@ -103,7 +121,7 @@ def log_call_status(risk_level: str, heard: str, tool_context: ToolContext) -> d
         Whether an alert is already active for this call.
     """
     tool_context.actions.skip_summarization = True
-    level = risk_level.strip().lower()
+    level = _normalise_id(risk_level)
     if level not in RISK_LEVELS:
         level = "suspicious"
     log = list(tool_context.state.get("call_log", []))

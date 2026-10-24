@@ -79,3 +79,11 @@ def test_merge_chunks_concatenates_audio_and_spans_time():
     with wave.open(io.BytesIO(merged.wav_bytes)) as w:
         assert w.getnframes() == 2 * SAMPLE_RATE
     assert merge_chunks(chunks[:1]) is chunks[0]
+
+
+def test_duration_reads_header_without_decoding(tmp_path):
+    from rakshak.audio import duration
+
+    path = tmp_path / "call.wav"
+    path.write_bytes(to_wav_bytes(np.zeros(8000 * 3, dtype=np.int16), rate=8000))
+    assert duration(path) == pytest.approx(3.0)

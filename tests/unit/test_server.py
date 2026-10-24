@@ -11,7 +11,8 @@ from tests.unit.fakes import FakeRunner
 
 @pytest.fixture
 def client(monkeypatch):
-    monkeypatch.setattr(server, "_monitor", CallMonitor(runner=FakeRunner(alert_on=1)))
+    fake = CallMonitor(runner=FakeRunner(alert_on=1))
+    monkeypatch.setattr(server, "monitor", lambda: fake)
     return TestClient(server.app)
 
 
@@ -64,3 +65,13 @@ def test_websocket_live_mic_produces_chunk_events(client):
                 break
     assert events[-1]["duration"] == pytest.approx(11, abs=0.01)
     assert sum(1 for e in events if e["type"] in ("chunk", "alert")) >= 1
+
+
+def test_take_pcm_keeps_odd_trailing_byte_for_next_chunk():
+    buffer = bytearray(range(1, 6))
+    assert server._take_pcm(buffer) == bytes(range(1, 5))
+    assert buffer == bytearray([5])  # half a sample waits for its partner
+
+
+def test_speak_rejects_blank_text(client):
+    assert client.get("/api/speak", params={"text": "   "}).status_code == 422

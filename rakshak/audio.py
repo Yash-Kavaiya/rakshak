@@ -85,16 +85,16 @@ def chunk_audio(pcm: np.ndarray, seconds: float = 5.0) -> list[AudioChunk]:
     return chunks
 
 
+def _pcm_from_wav_bytes(data: bytes) -> np.ndarray:
+    with wave.open(io.BytesIO(data), "rb") as w:
+        return np.frombuffer(w.readframes(w.getnframes()), np.int16)
+
+
 def merge_chunks(chunks: list[AudioChunk]) -> AudioChunk:
     """Join consecutive chunks into one (used when analysis lags behind the call)."""
     if len(chunks) == 1:
         return chunks[0]
-    pcm = np.concatenate(
-        [
-            np.frombuffer(wave.open(io.BytesIO(c.wav_bytes)).readframes(-1), np.int16)
-            for c in chunks
-        ]
-    )
+    pcm = np.concatenate([_pcm_from_wav_bytes(c.wav_bytes) for c in chunks])
     return AudioChunk(
         chunks[0].index, chunks[0].start, chunks[-1].end, to_wav_bytes(pcm)
     )
@@ -105,4 +105,6 @@ def chunk_wav(path: str | Path, seconds: float = 5.0) -> list[AudioChunk]:
 
 
 def duration(path: str | Path) -> float:
-    return len(load_wav(path)) / SAMPLE_RATE
+    """Length in seconds, read from the wav header (no decoding)."""
+    with wave.open(str(path), "rb") as w:
+        return w.getnframes() / w.getframerate()

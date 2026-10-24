@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import time
 import uuid
-from collections.abc import AsyncIterator, Sequence
+from collections.abc import AsyncIterator, Iterable, Sequence
 from pathlib import Path
 
 from google.adk.runners import InMemoryRunner
@@ -35,6 +35,29 @@ def chunk_message(
     )
 
 
+def pair_tool_calls(parts: Iterable[types.Part]) -> list[dict]:
+    """Match each function call with its response, in call order.
+
+    Returns `{"name", "args", "result"?}` per call. Responses are matched by id,
+    falling back to the latest call of the same name when ids are missing.
+    """
+    calls: dict[str, dict] = {}
+    for part in parts:
+        if call := part.function_call:
+            key = call.id or f"{call.name}#{len(calls)}"
+            calls[key] = {"name": call.name, "args": dict(call.args or {})}
+        elif response := part.function_response:
+            key = response.id if response.id in calls else None
+            if key is None:
+                key = next(
+                    (k for k in reversed(calls) if calls[k]["name"] == response.name),
+                    None,
+                )
+            if key is not None:
+                calls[key]["result"] = dict(response.response or {})
+    return list(calls.values())
+
+
 def default_runner() -> InMemoryRunner:
     from rakshak.agent import app
 
@@ -55,40 +78,16 @@ class LiveCall:
         self.heard_until = 0.0
 
     async def _tool_calls(self, index: int, message: types.Content) -> list[dict]:
-        calls: dict[str, dict] = {}
-        order: list[str] = []
+        parts: list[types.Part] = []
         async for event in self.runner.run_async(
             user_id=self.user_id,
             session_id=self.session_id,
             new_message=message,
             state_delta={"current_chunk": index},
         ):
-            if not event.content or not event.content.parts:
-                continue
-            for part in event.content.parts:
-                if part.function_call:
-                    key = (
-                        part.function_call.id
-                        or f"{part.function_call.name}#{len(order)}"
-                    )
-                    calls[key] = {
-                        "name": part.function_call.name,
-                        "args": dict(part.function_call.args or {}),
-                    }
-                    order.append(key)
-                elif part.function_response:
-                    fr = part.function_response
-                    key = (
-                        fr.id
-                        if fr.id in calls
-                        else next(
-                            (k for k in reversed(order) if calls[k]["name"] == fr.name),
-                            None,
-                        )
-                    )
-                    if key:
-                        calls[key]["result"] = dict(fr.response or {})
-        return [calls[k] for k in order]
+            if event.content and event.content.parts:
+                parts.extend(event.content.parts)
+        return pair_tool_calls(parts)
 
     async def feed(
         self, chunk: AudioChunk, text: str | None = None, merged: int = 1

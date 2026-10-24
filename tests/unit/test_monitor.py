@@ -1,9 +1,10 @@
 import time
 
 import numpy as np
+from google.genai import types
 
 from rakshak.audio import chunk_audio
-from rakshak.monitor import CallMonitor, chunk_message
+from rakshak.monitor import CallMonitor, chunk_message, pair_tool_calls
 from tests.unit.fakes import FakeRunner
 
 
@@ -86,3 +87,30 @@ async def test_realtime_mode_merges_chunks_heard_while_analysis_lagged():
     assert len(analysed) < 6, "lagging analysis should merge chunks"
     assert sum(e["merged"] for e in analysed) == 6
     assert analysed[-1]["end"] == 0.6
+
+
+def _call(name, call_id=None):
+    return types.Part(
+        function_call=types.FunctionCall(id=call_id, name=name, args={"x": 1})
+    )
+
+
+def _response(name, call_id=None, status="ok"):
+    return types.Part(
+        function_response=types.FunctionResponse(
+            id=call_id, name=name, response={"status": status}
+        )
+    )
+
+
+def test_pair_tool_calls_matches_responses_by_id():
+    parts = [_call("a", "1"), _call("a", "2"), _response("a", "1", "first")]
+    calls = pair_tool_calls(parts)
+    assert [c.get("result") for c in calls] == [{"status": "first"}, None]
+
+
+def test_pair_tool_calls_falls_back_to_latest_call_with_same_name():
+    parts = [_call("a"), _call("b"), _response("a"), types.Part(text="ok")]
+    calls = pair_tool_calls(parts)
+    assert [c["name"] for c in calls] == ["a", "b"]
+    assert calls[0]["result"] == {"status": "ok"} and "result" not in calls[1]
