@@ -1,0 +1,255 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F2043"/>
+      <stop offset="50%" stop-color="#1B356B"/>
+      <stop offset="100%" stop-color="#0A1630"/>
+    </linearGradient>
+    <linearGradient id="scamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#CD2026"/>
+      <stop offset="100%" stop-color="#E53935"/>
+    </linearGradient>
+    <linearGradient id="safeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#18864B"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+    <linearGradient id="saffronGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EB6E1E"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#64748B"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#EB6E1E"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#F8FAFC"/>
+
+  <!-- ==================== HEADER ==================== -->
+  <rect x="0" y="0" width="1200" height="110" fill="url(#headerGrad)"/>
+  <circle cx="55" cy="55" r="30" fill="#1E293B" opacity="0.6"/>
+  <text x="55" y="65" text-anchor="middle" font-size="32">🛡️</text>
+  <text x="100" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">RAKSHAK <tspan fill="#EB6E1E">रक्षक · રક્ષક</tspan></text>
+  <text x="100" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#CBD5E1">Real-Time AI Voice Guardian Against Digital Arrest, Fake KYC &amp; Courier Scams · Full Architecture &amp; Features</text>
+  
+  <rect x="1000" y="32" width="160" height="46" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="1080" y="52" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#94A3B8">POWERED BY</text>
+  <text x="1080" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#38BDF8">Google ADK &amp; Gemini</text>
+
+  <!-- ==================== TOP FLOW: END-TO-END PIPELINE ==================== -->
+  <g transform="translate(40, 130)">
+    <!-- Stage 1 -->
+    <g filter="url(#shadow)">
+      <rect x="0" y="0" width="250" height="95" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect x="0" y="0" width="6" height="95" rx="3" fill="#0F2043"/>
+      <text x="20" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#0F2043" letter-spacing="0.5">STAGE 1: AUDIO STREAM</text>
+      <text x="20" y="50" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">16 kHz PCM Sliding Chunks</text>
+      <text x="20" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">5.0s slices · Phone DSP Bandpass</text>
+      <text x="20" y="85" font-family="system-ui, sans-serif" font-size="11" fill="#94A3B8">Web AudioWorklet / Live Mic</text>
+    </g>
+    <!-- Arrow 1 -->
+    <path d="M255 48 L285 48" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Stage 2 -->
+    <g filter="url(#shadow)">
+      <rect x="290" y="0" width="250" height="95" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect x="290" y="0" width="6" height="95" rx="3" fill="#EB6E1E"/>
+      <text x="310" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#EB6E1E" letter-spacing="0.5">STAGE 2: STREAM MONITOR</text>
+      <text x="310" y="50" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">Lag-Resilient Orchestrator</text>
+      <text x="310" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">Dynamic merging if model lags</text>
+      <text x="310" y="85" font-family="system-ui, sans-serif" font-size="11" fill="#94A3B8">1 Call = 1 Continuous Session</text>
+    </g>
+    <!-- Arrow 2 -->
+    <path d="M545 48 L575 48" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Stage 3 -->
+    <g filter="url(#shadow)">
+      <rect x="580" y="0" width="250" height="95" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect x="580" y="0" width="6" height="95" rx="3" fill="#2563EB"/>
+      <text x="600" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#2563EB" letter-spacing="0.5">STAGE 3: GEMINI AUDIO</text>
+      <text x="600" y="50" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">Native Multimodal AI</text>
+      <text x="600" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">Zero ASR · Tone &amp; Intonation</text>
+      <text x="600" y="85" font-family="system-ui, sans-serif" font-size="11" fill="#94A3B8">Hindi, Gujarati, Hinglish Direct</text>
+    </g>
+    <!-- Arrow 3 -->
+    <path d="M835 48 L865 48" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Stage 4 -->
+    <g filter="url(#shadow)">
+      <rect x="870" y="0" width="250" height="95" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect x="870" y="0" width="6" height="95" rx="3" fill="#CD2026"/>
+      <text x="890" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#CD2026" letter-spacing="0.5">STAGE 4: MID-CALL DEFENSE</text>
+      <text x="890" y="50" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">Vernacular Voice Alert</text>
+      <text x="890" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">Ducks audio · Hindi &amp; Gujarati</text>
+      <text x="890" y="85" font-family="system-ui, sans-serif" font-size="11" fill="#94A3B8">Fires 30-40s before money transfer</text>
+    </g>
+  </g>
+
+  <!-- ==================== MIDDLE SECTION: ARCHITECTURE & TIMELINE ==================== -->
+  
+  <!-- Left Column: Architectural Layers (width 540) -->
+  <g transform="translate(40, 250)">
+    <text x="0" y="0" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#0F2043">SYSTEM ARCHITECTURE MATRIX</text>
+    
+    <!-- Layer 1: Client UI -->
+    <g filter="url(#shadow)" transform="translate(0, 15)">
+      <rect x="0" y="0" width="530" height="68" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="12" y="12" width="44" height="44" rx="8" fill="#EEF2FF"/>
+      <text x="34" y="38" text-anchor="middle" font-size="20">💻</text>
+      <text x="68" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#1E293B">Presentation Layer (Single Page Reactive UI)</text>
+      <text x="68" y="48" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">Dual Scrub Progress · Alert Mark Pin · Live Audit Timeline · Web Audio Worklet</text>
+    </g>
+
+    <!-- Layer 2: Gateway & Server -->
+    <g filter="url(#shadow)" transform="translate(0, 95)">
+      <rect x="0" y="0" width="530" height="68" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="12" y="12" width="44" height="44" rx="8" fill="#FFF7ED"/>
+      <text x="34" y="38" text-anchor="middle" font-size="20">⚡</text>
+      <text x="68" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#1E293B">Gateway Layer (FastAPI &amp; Cloud Run)</text>
+      <text x="68" y="48" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">SSE Realtime Streaming · Binary PCM WebSocket (/ws/listen) · TTS Audio Route</text>
+    </g>
+
+    <!-- Layer 3: Orchestrator & ADK Session -->
+    <g filter="url(#shadow)" transform="translate(0, 175)">
+      <rect x="0" y="0" width="530" height="68" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="12" y="12" width="44" height="44" rx="8" fill="#F0FDF4"/>
+      <text x="34" y="38" text-anchor="middle" font-size="20">🔄</text>
+      <text x="68" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#1E293B">Stream Orchestrator (CallMonitor &amp; LiveCall)</text>
+      <text x="68" y="48" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">Google ADK InMemoryRunner · Session State Management · Lag-Resilient Dynamic Merging</text>
+    </g>
+
+    <!-- Layer 4: Gemini Multimodal & Callbacks -->
+    <g filter="url(#shadow)" transform="translate(0, 255)">
+      <rect x="0" y="0" width="530" height="68" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="12" y="12" width="44" height="44" rx="8" fill="#FEF2F2"/>
+      <text x="34" y="38" text-anchor="middle" font-size="20">🧠</text>
+      <text x="68" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#1E293B">Multimodal Agent Core &amp; Callback Engine</text>
+      <text x="68" y="48" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">Gemini 3.5/3.8 Audio · Zero-Latency Tool Callback (skip_summarization) · 1 Turn = 1 Tool</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Mid-Call Timeline & Red Flag Taxonomy (width 550) -->
+  <g transform="translate(610, 250)">
+    <text x="0" y="0" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#0F2043">MID-CALL DETECTION VS SCAM TIMELINE</text>
+    
+    <!-- Timeline Card -->
+    <g filter="url(#shadow)" transform="translate(0, 15)">
+      <rect x="0" y="0" width="550" height="150" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+      
+      <!-- Baseline: Scam Progression -->
+      <text x="20" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#64748B">SCAM PROGRESSION (UNPROTECTED):</text>
+      <!-- Timeline Bar -->
+      <rect x="20" y="38" width="510" height="12" rx="6" fill="#E2E8F0"/>
+      <rect x="20" y="38" width="130" height="12" fill="#94A3B8"/>
+      <rect x="150" y="38" width="150" height="12" fill="#F59E0B"/>
+      <rect x="300" y="38" width="230" height="12" fill="#EF4444"/>
+      <text x="25" y="65" font-family="system-ui, sans-serif" font-size="10" fill="#64748B">0s: Friendly Greeting</text>
+      <text x="160" y="65" font-family="system-ui, sans-serif" font-size="10" fill="#D97706">15s: Police Threat / Arrest</text>
+      <text x="350" y="65" font-family="system-ui, sans-serif" font-size="10" fill="#DC2626">50s: Transfer ₹4 Lakhs / OTP</text>
+
+      <!-- Rakshak Intervention Line -->
+      <line x1="20" y1="82" x2="530" y2="82" stroke="#E2E8F0" stroke-dasharray="4"/>
+      <text x="20" y="102" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#18864B">🛡️ RAKSHAK INTERVENTION TIMELINE:</text>
+      <rect x="20" y="112" width="510" height="12" rx="6" fill="#DCFCE7"/>
+      <rect x="20" y="112" width="150" height="12" fill="#16A34A"/>
+      
+      <!-- Alert Marker -->
+      <circle cx="170" cy="118" r="9" fill="#CD2026" stroke="#FFFFFF" stroke-width="2"/>
+      <text x="190" y="122" font-family="system-ui, sans-serif" font-size="12" font-weight="800" fill="#CD2026">ALERT TRIGGERED @ 16.5s! (Call still ongoing)</text>
+      <text x="190" y="138" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#15803D">Saved victim 33.5s BEFORE extortion request!</text>
+    </g>
+
+    <!-- Red Flag Taxonomy Grid -->
+    <text x="0" y="195" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#0F2043">PRECISION SCAM TAXONOMY (8 RED FLAGS)</text>
+    
+    <g transform="translate(0, 210)">
+      <!-- Row 1 -->
+      <rect x="0" y="0" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="10" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">authority_impersonation</text>
+      <text x="10" y="38" font-family="system-ui, sans-serif" font-size="11" fill="#475569">नकली पुलिस / बैंक</text>
+
+      <rect x="140" y="0" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="150" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">threat_or_arrest</text>
+      <text x="150" y="38" font-family="system-ui, sans-serif" font-size="11" fill="#475569">गिरफ्तारी / धमकी</text>
+
+      <rect x="280" y="0" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="290" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">secrecy_isolation</text>
+      <text x="290" y="38" font-family="system-ui, sans-serif" font-size="11" fill="#475569">किसी को मत बताना</text>
+
+      <rect x="420" y="0" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="430" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">money_transfer</text>
+      <text x="430" y="38" font-family="system-ui, sans-serif" font-size="11" fill="#475569">पैसे भेजने को कहा</text>
+
+      <!-- Row 2 -->
+      <rect x="0" y="60" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="10" y="80" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">otp_request</text>
+      <text x="10" y="98" font-family="system-ui, sans-serif" font-size="11" fill="#475569">OTP / PIN माँगा</text>
+
+      <rect x="140" y="60" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="150" y="80" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">remote_app_install</text>
+      <text x="150" y="98" font-family="system-ui, sans-serif" font-size="11" fill="#475569">AnyDesk / APK लिंक</text>
+
+      <rect x="280" y="60" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="290" y="80" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">urgency</text>
+      <text x="290" y="98" font-family="system-ui, sans-serif" font-size="11" fill="#475569">जल्दबाज़ी का दबाव</text>
+
+      <rect x="420" y="60" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="430" y="80" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#CD2026">personal_data_req</text>
+      <text x="430" y="98" font-family="system-ui, sans-serif" font-size="11" fill="#475569">आधार / बैंक डिटेल</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM METRICS BAR ==================== -->
+  <g transform="translate(40, 600)">
+    <rect x="0" y="0" width="1120" height="135" rx="12" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#shadow)"/>
+    
+    <!-- Metric 1 -->
+    <g transform="translate(30, 20)">
+      <text x="0" y="32" font-family="system-ui, sans-serif" font-size="34" font-weight="800" fill="#18864B">100%</text>
+      <text x="0" y="55" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1E293B">Scam Detection Rate</text>
+      <text x="0" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">All Digital Arrest, Fake KYC</text>
+      <text x="0" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">&amp; Courier scams caught mid-call</text>
+    </g>
+
+    <line x1="260" y1="20" x2="260" y2="115" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <!-- Metric 2 -->
+    <g transform="translate(290, 20)">
+      <text x="0" y="32" font-family="system-ui, sans-serif" font-size="34" font-weight="800" fill="#2563EB">0</text>
+      <text x="0" y="55" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1E293B">False Positives ("Never Cry Wolf")</text>
+      <text x="0" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">Genuine bank reminders, delivery</text>
+      <text x="0" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">&amp; family calls remain 100% silent</text>
+    </g>
+
+    <line x1="560" y1="20" x2="560" y2="115" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <!-- Metric 3 -->
+    <g transform="translate(590, 20)">
+      <text x="0" y="32" font-family="system-ui, sans-serif" font-size="34" font-weight="800" fill="#EB6E1E">15s - 25s</text>
+      <text x="0" y="55" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1E293B">Average Detection Window</text>
+      <text x="0" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">Intervenes at least 10s-35s</text>
+      <text x="0" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">before extortion request appears</text>
+    </g>
+
+    <line x1="840" y1="20" x2="840" y2="115" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <!-- Metric 4 -->
+    <g transform="translate(870, 20)">
+      <text x="0" y="32" font-family="system-ui, sans-serif" font-size="34" font-weight="800" fill="#0F2043">2 Languages</text>
+      <text x="0" y="55" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1E293B">Vernacular Voice Warnings</text>
+      <text x="0" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">Devanagari Hindi &amp; Gujarati</text>
+      <text x="0" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#64748B">Spoken aloud with audio ducking</text>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER ==================== -->
+  <text x="600" y="775" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94A3B8">
+    Rakshak AI · Scalable Serverless Voice Defense on Google Cloud Run &amp; Vertex AI · Google Agent Development Kit (ADK)
+  </text>
+</svg>
